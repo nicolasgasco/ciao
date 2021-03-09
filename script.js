@@ -31,37 +31,47 @@ function createCardsWithMedia(dataSet) {
 
     let objectsArray = [];
     for ( media of dataSet.results) {
-        console.log(media.tagline)
         
         if ( media.title ) {
-
 
             let mediaData = new Object()
             
 
             mediaData.title =  media.title;
-            mediaData.id = Number(media.id);
+            mediaData.id = media.id;
             mediaData.img = media.poster_path;
-
+            mediaData.overview = media.overview;
             mediaData.release_date = media.release_date;
             // mediaData.popularity = media.popularity;
             mediaData.genre_ids = media.genre_ids;
             mediaData.vote_average = media.vote_average;
             mediaData.vote_count = media.vote_count;
             
-            let singleMedia = [media.id, mediaData];
+            let singleMedia = [media.vote_count, mediaData];
             objectsArray.push(singleMedia);
         }
+
+        
     }
     let = objectsArraySorted = objectsArray.sort(function(a, b) {return b[0] - a[0];});
     
     objectsArraySorted.forEach( element => {
+        
+        console.log(element)
+
+        if ( element[1].img ) {
+            posterUrl = `https://image.tmdb.org/t/p/w${posterSize}/${element[1].img}`;
+        } else {
+            console.log("ciao")
+            posterUrl = `./img/image_unavailable.png`;
+        }
+
 
         resultsBox.innerHTML +=
         `
-        <div class="media-card">
+        <div class="media-card media-card-front">
 
-            <img src="https://image.tmdb.org/t/p/w${posterSize}/${element[1].img}" alt="Poster picture of ${element[1].title}" class="poster-pic">
+            <img src="${posterUrl}" alt="Poster picture of ${element[1].title}" class="poster-pic">
             <div class="media-card-text">
                 <h3>${element[1].title} (${element[1]["release_date"].substring(0,4)})</h3>
                 <p>Genres: ${element[1].genre_ids}</p>            
@@ -69,6 +79,8 @@ function createCardsWithMedia(dataSet) {
                 <p>Vote count: ${element[1].vote_count}</p>
             </div>
         </div>
+
+
         `
     })
 }
