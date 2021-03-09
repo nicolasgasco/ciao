@@ -98,7 +98,7 @@ footer {
 }
 
 #results-box {
-    padding: 5%;
+    padding: 2%;
     margin: 0 auto;
 
     display: flex;
@@ -115,7 +115,7 @@ footer {
     width: 20%;
 
     flex-basis: 1;
-    margin: 1.5%;
+    margin: 2%;
 }
 
 .poster-pic {
