@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search on Watcha-Watch</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100;0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div id="top-box" class="text-white">
+    <header id="top-header">
+
+      <p id="logo" class="uppercase">Watcha-Watch</p>
+
+
+      <nav>
+        <ul id="main-nav-list">
+          <li class="nav-items"><a href="index.html" class="text-white">Home</a></li>
+          <li class="nav-items"><a href="search.html" class="text-white active-page">Search</a></li>
+          <li class="nav-items standard-button"><a href="favorites.html" class="text-white">Favorites</a></li>
+        </ul>
+      </nav>
+
+    </header>
+
+    <main class="spaced-text">
+          
+      <div id="search-box" class="text-white">
+        <h2 class="uppercase">Start searching now</h2>
+        <p>Write the name of the film or the TV series you're looking for.</p>
+
+          <form id="search-box-form">
+            <input type="search" id="search-bar" id="search-bar-title" placeholder="Search for a movie or TV series...">
+            <button type="submit" id="search-button"><img id="search-icon" src="./img/loupe.svg" alt="Search icon"></button>
+          </form>
+      </div>
+    </main>
+  </div>
+
+  <div id="results-box">
+
+  </div>
+
+
+
+  <footer id="bottom-footer" class="text-white">
+    <small>Search powered by <a href="https://www.themoviedb.org/" target="_blank" id="tmdb">TMDb</a>.</small>
+    <small>Icons by <a href="https://www.freepik.com" title="Freepik">Freepik</a>.</small>
+    <small>Made by Nicolas Gasco.</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
