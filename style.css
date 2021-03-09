@@ -33,6 +33,7 @@ footer{
     position: fixed;
     top: 0; 
     background-color: #131313;
+    z-index: 9999;
 }
 
 .nav-items {
@@ -83,7 +84,7 @@ footer {
 #search-bar {
     width: 90%;
     height: 100%;
-    padding-left: 2rem;
+    padding-left: 4rem;
 }
 
 #search-button {
@@ -98,6 +99,7 @@ footer {
 
 #results-box {
     padding: 5%;
+    margin: 0 auto;
 
     display: flex;
     flex-wrap: wrap;
@@ -107,13 +109,13 @@ footer {
 }
 
 .media-card {
-    background-color: lightgrey;
+
     /* width: 20vw; */
     min-width: 240px;
     width: 20%;
 
     flex-basis: 1;
-    margin: 2.5%;
+    margin: 1.5%;
 }
 
 .poster-pic {
@@ -135,6 +137,10 @@ footer {
     font-weight: bold;
     letter-spacing: 6px;
     font-size: 15px;
+}
+
+#logo:hover {
+    outline: 7px white solid;
 }
 
 .spaced-text {
@@ -184,6 +190,11 @@ a:visited {
     text-decoration: none;
 }
 
+#search-bar {
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+}
+
 
 /* AESTHETICS */
 
@@ -226,8 +237,6 @@ a:visited {
 
 .standard-button {
     border: 0;
-
-    background-image: linear-gradient(to right bottom, #22b041, #009579, #007496, #004f8c, #162960);
 }
 
 footer, #top-box {
@@ -238,11 +247,20 @@ footer, #top-box {
     border-radius: 100px 0 0 100px;
 } 
 
+#search-bar:focus, #search-button:focus {
+    outline: none;
+}
+
 #search-button {
     border-radius: 0 100px 100px 0;
-    
+}
+
+.standard-button, #search-button {
     background-image: linear-gradient(to right bottom, #22b041, #009579, #007496, #004f8c, #162960);
 }
+
+.standard-button:hover, #search-button:hover {        
+    background-image: linear-gradient(to right, #22b041, #009579, #007496, #004f8c, #162960);}
 
 #search-bar, #search-button {
     border: 0;
@@ -260,6 +278,25 @@ footer, #top-box {
     color: #0BB5E0;
     border-bottom: 2px solid #0BB5E0;
 
+}
+
+.media-card {
+    background-color: lightgrey;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+
+
+}
+.media-card:hover {
+    transform: translate3d(0px, -10px, 0px);
+    transition-duration: 0.5s;
+}
+
+#search-bar {
+    color: rgb(83, 83, 83);
+}
+
+#search-bar:focus, #search-bar:hover {
+    box-shadow: inset 0 0 10px #000000;
 }
 
 
