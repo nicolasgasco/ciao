@@ -135,18 +135,28 @@ footer {
     min-height: 15rem;
 }
 
+#search-error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#search-error-container * {
+    margin: 1rem;
+}
+
+
 #show-more-container {
-    background-color: red;
     padding: 1rem;
     margin: 0 auto;
 
     display: flex;
     flex-direction: column;
     align-items: center;
+    visibility: hidden;
 }
 
 #show-more-button {
-    background-color: blue;
+
     width: 4rem;
     height: 4rem;
 }
@@ -213,7 +223,7 @@ a, a:visited  {
 
 /* AESTHETICS */
 
-body {
+body, #show-more-button {
     background-color: #FFF;
 }
 
@@ -312,6 +322,18 @@ footer, #top-box {
 
 #search-bar:focus, #search-bar:hover {
     box-shadow: inset 0 0 10px #000000;
+}
+
+#show-more-button {
+    border: 0;
+    background-image: url("./img/down-arrow.svg");
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-position: center;
+}
+#show-more-button, #show-more-button:active {
+    border: 0;
+    outline: none;
 }
 
 #top-box {

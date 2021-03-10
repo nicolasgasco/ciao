@@ -15,6 +15,23 @@ searchButton.addEventListener("click", fetchMediaFromKeywords);
 const searchBarTitle = document.querySelector("#search-bar");
 searchBarTitle.addEventListener("change", fetchMediaFromKeywords);
 
+const showMoreButton = document.querySelector("#show-more-button");
+showMoreButton.addEventListener("click", showNextPages);
+
+
+
+function showNextPages() {
+
+    pageFetchedFromAPI++
+    const resultsBox = document.querySelector("#results-box");
+
+    // In this version, page is not reset when fetching new results
+    // resultsBox.innerHTML = ``;
+
+    fetchMediaFromKeywords(event);
+
+}
+
 
 function fetchMediaFromKeywords(e) {
 
@@ -26,15 +43,14 @@ function fetchMediaFromKeywords(e) {
         return response.json();
     }).then( function(data) {
         let totalPagesToFetch = data.total_pages;
+
         createCardsWithMedia(data);
-
-
     })
-    // .catch( (error) => {
-    //     console.log("ERROR: ", error)
-    //     const resultsBox = document.querySelector("#results-box");
-    //     showErrorMessageGraphics(resultsBox);
-    // });
+    .catch( (error) => {
+        console.log("ERROR: ", error)
+        const resultsBox = document.querySelector("#results-box");
+        showErrorMessageGraphics(resultsBox);
+    });
 
 }
 
@@ -43,25 +59,24 @@ function createCardsWithMedia(dataSet) {
     const resultsBox = document.querySelector("#results-box");
     let posterSize = 300; 
 
-    resultsBox.innerHTML = ``;
-
+    // Nothing found
     if ( dataSet.results.length === 0 ) {
 
+        resultsBox.innerHTML = ``;
         showErrorMessageGraphics(resultsBox);
 
     } else {
+        // This is if error message is shown on screen, another condition could be used
+        if ( resultsBox.children[0] && resultsBox.children[0].id === "search-error-container" ) {
+            resultsBox.innerHTML = ``;
+        }
 
-        // function showCardsOnPage () {
+
         resultsBox.style.flexDirection = "row";
         resultsBox.style.alignItems = "baseline";
 
         let objectsArraySorted = createArrayWithRelevantInfo(dataSet);
-        // }
 
-
- 
-
-        
         objectsArraySorted.forEach( element => {
 
             if ( element[1].img ) {
@@ -90,6 +105,8 @@ function createCardsWithMedia(dataSet) {
             `
 
         });
+
+        document.getElementById("show-more-container").style.visibility = "visible";
         
     }
 }
@@ -99,7 +116,11 @@ function showBacksideCard(e, id) {
     const moviePoster = document.querySelector(`#poster-pic-${id}`);
     const hiddenText = document.querySelector(`#hidden-text-${id}`);
     const shownText = document.querySelector(`#media-card-text-${id}`);
+    let hiddenParagraph = document.querySelector(`#hidden-text-${id} p`);
 
+    if ( !hiddenParagraph.innerText ) {
+        hiddenParagraph.innerText = "No description available."
+    } 
     moviePoster.style.display = "none";
     hiddenText.style.display = "block";
     hiddenText.style.overflow = "auto";
@@ -156,42 +177,50 @@ function showErrorMessageGraphics(targetDiv) {
     
     targetDiv.innerHTML =
     `
-    <h2>Oops! It looks like you know more than us on cinema...</h2>
-    <small>(Either that or the film you're looking for doesn't exist.)</small>
-    <img src="./img/nothing_found.png" alt="Illustration for nothing found">
+    <div id="search-error-container">
+        <h2>Oops! It looks like you know more than us on cinema...</h2>
+        <small>(Either that or the film you're looking for doesn't exist.)</small>
+        <img src="./img/nothing_found.png" alt="Illustration for nothing found" style="max-width: 70%">
+    </div>
     `
 }
 
 function createArrayWithRelevantInfo(dataSet) {
     let objectsArray = [];
     for ( media of dataSet.results) {
+
+        // Persons must be skipped
+        if ( media.media_type === "person"  ) {
+            continue
+        } 
+
         // Title is called name for TV series
         let mediaTitle = ( media.title == undefined ) ? media.name : media.title;
         // Release_date is first_air_date for series
         let mediaDate = ( media.release_date == undefined ) ? media.first_air_date : media.release_date;
         
-        if ( mediaTitle ) {
 
-            let mediaData = new Object()
-            
+        let mediaData = new Object()
+        
+        mediaData.title =  mediaTitle;
+        mediaData.release_date = mediaDate;
+        mediaData.img = media.poster_path;
+        mediaData.overview = media.overview;
+        
+        mediaData.id = media.id;
+        mediaData.genre_labels = [];
 
-            mediaData.title =  mediaTitle;
-            mediaData.release_date = mediaDate;
-            mediaData.img = media.poster_path;
-            mediaData.overview = media.overview;
-            
-            mediaData.id = media.id;
-            mediaData.genre_labels = [];
-            for ( let genreId of media.genre_ids ) {
-                mediaData.genre_labels.push(getGenreLabelFromId(genreId).toLowerCase())
-            }
-
-            mediaData.vote_average = media.vote_average;
-            mediaData.vote_count = media.vote_count;
-            
-            let singleMedia = [media.vote_count, mediaData];
-            objectsArray.push(singleMedia);
+        console.log(media.id)
+        for ( let genreId of media.genre_ids ) {
+            mediaData.genre_labels.push(getGenreLabelFromId(genreId).toLowerCase())
         }
+
+        mediaData.vote_average = media.vote_average;
+        mediaData.vote_count = media.vote_count;
+        
+        let singleMedia = [media.vote_count, mediaData];
+        objectsArray.push(singleMedia);
+
 
     }
     let = objectsArraySorted = objectsArray.sort(function(a, b) {return b[0] - a[0];});
