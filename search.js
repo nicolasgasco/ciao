@@ -1,11 +1,7 @@
-const apiKey = `019e3db391209165d704763866329bb3`;
-const language = `en-US`;
+
 let pageFetchedFromAPI = 1;
 let newSearch = true;
-let userFavorites = [];
-
-// LocalStorage is fetched
-updateChoicesFromLocalStorage()
+let userFavorites = createChoicesArrayFromLocalStorage();
 
 // In order for these to work, it must be either tv or movie (API terms)
 let movieGenreArray = createObjectGenres("tv");
@@ -50,8 +46,11 @@ function showNextPages() {
 
 
 function fetchMediaFromKeywords(e) {
+    const apiKey = `019e3db391209165d704763866329bb3`;
+    const language = `en-US`;
     const resultsBox = document.querySelector("#results-box");
     const showMoreButton = document.querySelector("#show-more-container");
+    
     if ( e.target.id === "search-bar" || e.target.id === "search-button" ) {
         resultsBox.innerHTML = ``;
         showMoreButton.style.visibility = "hidden";
@@ -119,7 +118,8 @@ function createCardsWithMedia(dataSet) {
                     </div>
                     <div class="media-card-text" id="media-card-text-${element[1].id}">
                         <h3>${element[1].title} (${element[1]["release_date"].substring(0,4)})</h3>
-                        <p><span class="bold uppercase">Genres:</span> ${element[1].genre_labels.join(", ")}.</p>            
+                        <p class="type-text"><span class="bold uppercase">Type:</span> ${element[1].media_type}</p>            
+                        <p><span class="bold uppercase">Genres:</span> ${element[1].genre_labels.join(", ")}</p>            
                         <div id="in-card-icons">
                             <p>${element[1].vote_average}</p>
                             <p>${element[1].vote_count}</p>
@@ -164,6 +164,8 @@ function showBacksideCard(e, id) {
 
 
 function createObjectGenres(mediaType) {
+    const apiKey = `019e3db391209165d704763866329bb3`;
+    const language = `en-US`;
     let url = `https://api.themoviedb.org/3/genre/${mediaType}/list?api_key=${apiKey}&language=${language}`
     let genresArray = [];
     
@@ -235,6 +237,7 @@ function createArrayWithRelevantInfo(dataSet) {
         mediaData.img = media.poster_path;
         mediaData.overview = media.overview;
         mediaData.id = media.id;
+        mediaData.media_type = media.media_type;
 
         mediaData.genre_labels = [];
 
@@ -264,8 +267,16 @@ function addToFavoritesList(e) {
     
 
     const mediaId = e.target.id.split("-")[2];
+    // Tv or movie
+    const mediaType = document.querySelector(".type-text").innerText.split(":")[1];
+
+
     if ( !userFavorites.includes(mediaId) ) {
-        userFavorites.push(mediaId);
+        let mediaObject = {
+            "id": mediaId,
+            "type": mediaType,
+        }
+        userFavorites.push(mediaObject);
     }
 
     heartIcon.addEventListener("click", removeFromFavoritesList);
@@ -279,28 +290,33 @@ function removeFromFavoritesList(e) {
     
     heartIcon.setAttribute("src", "./img/heart.png");
     const mediaId = e.target.id.split("-")[2];
-    userFavorites = userFavorites.filter(item => item !== mediaId)
+
+    // Remove from list
+    userFavorites = userFavorites.filter(item => item.id !== mediaId)
 
     heartIcon.addEventListener("click", addToFavoritesList);
     console.log(userFavorites);
   
 }
 
-function removeSpecificItemFromArray(myArray, item) {
-    let result = [];
-    for (let el of myArray ) {
-        if ( item !== el ) {
-            result.push(item);
-        }
-    }
-    return result;
-}
 
 function saveChoicesToLS() {
     localStorage.setItem("userChoices", JSON.stringify(userFavorites));
 }
 
-function updateChoicesFromLocalStorage() {
+function createChoicesArrayFromLocalStorage() {
+    let userFavorites = []
     const userData = localStorage.getItem("userChoices");
     JSON.parse(userData).forEach( el => userFavorites.push(el) );
+    return userFavorites;
 }
+
+// function removeSpecificItemFromArray(myArray, item) {
+//     let result = [];
+//     for (let el of myArray ) {
+//         if ( item !== el ) {
+//             result.push(item);
+//         }
+//     }
+//     return result;
+// }

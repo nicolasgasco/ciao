@@ -101,6 +101,18 @@ footer {
     width: 25%;
 }
 
+#favorites-box {
+    padding: 2%;
+    margin: 0 auto;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    align-content: center;
+    gap: 3rem;
+}
+
 #results-box {
     padding: 2%;
     margin: 0 auto;
