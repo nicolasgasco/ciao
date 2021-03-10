@@ -268,8 +268,8 @@ function addToFavoritesList(e) {
 
     const mediaId = e.target.id.split("-")[2];
     // Tv or movie
-    const mediaType = document.querySelector(".type-text").innerText.split(":")[1];
-
+    const mediaType = document.querySelector(".type-text").innerText.split(":")[1].substring(1);
+    console.log(mediaType)
 
     if ( !userFavorites.includes(mediaId) ) {
         let mediaObject = {
@@ -307,7 +307,9 @@ function saveChoicesToLS() {
 function createChoicesArrayFromLocalStorage() {
     let userFavorites = []
     const userData = localStorage.getItem("userChoices");
-    JSON.parse(userData).forEach( el => userFavorites.push(el) );
+    if ( userData !== null ) {
+        JSON.parse(userData).forEach( el => userFavorites.push(el) );
+    }
     return userFavorites;
 }
 
