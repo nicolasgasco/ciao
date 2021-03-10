@@ -97,8 +97,12 @@ function createCardsWithMedia(dataSet) {
                     <div class="media-card-text" id="media-card-text-${element[1].id}">
                         <h3>${element[1].title} (${element[1]["release_date"].substring(0,4)})</h3>
                         <p><span class="bold uppercase">Genres:</span> ${element[1].genre_labels.join(", ")}.</p>            
-                        <p>Vote: ${element[1].vote_average}</p>
-                        <p>Vote count: ${element[1].vote_count}</p>
+                        <div id="in-card-icons">
+                            <p>${element[1].vote_average}</p>
+                            <p>${element[1].vote_count}</p>
+                            <img class="heart-icons" src="./img/heart.png" alt="Hollow heart icon">
+
+                        </div>
                     </div>
                 </div>
  

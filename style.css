@@ -178,10 +178,26 @@ footer {
 #top-box-favorites {
     height: 30vh;
 }
+
+#in-card-icons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.media-card-text {
+    min-height: 25vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+}
 /* TYPOGRAPHY */
 
 body {
     font-family: "Libre Franklin", Helvetica, sans-serif;
+    letter-spacing: 0.5px;
 }
 
 .bold, h1, .standard-button {
@@ -352,6 +368,11 @@ footer, .top-box {
 #show-more-button, #show-more-button:active {
     border: 0;
     outline: none;
+}
+
+.heart-icons {
+    width: 32px;
+    height: 32px;
 }
 
 .top-box {
