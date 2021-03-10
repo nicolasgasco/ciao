@@ -1,6 +1,7 @@
 const apiKey = `019e3db391209165d704763866329bb3`;
 const language = `en-US`;
 let pageFetchedFromAPI = 1;
+let newSearch = true;
 
 
 // In order for these to work, it must be either tv or movie (API terms)
@@ -14,6 +15,8 @@ searchButton.addEventListener("click", fetchMediaFromKeywords);
 
 const searchBarTitle = document.querySelector("#search-bar");
 searchBarTitle.addEventListener("change", fetchMediaFromKeywords);
+
+
 
 const showMoreButton = document.querySelector("#show-more-button");
 showMoreButton.addEventListener("click", showNextPages);
@@ -34,6 +37,13 @@ function showNextPages() {
 
 
 function fetchMediaFromKeywords(e) {
+    const resultsBox = document.querySelector("#results-box");
+    const showMoreButton = document.querySelector("#show-more-container");
+    if ( e.target.id === "search-bar" || e.target.id === "search-button" ) {
+        resultsBox.innerHTML = ``;
+        showMoreButton.style.visibility = "hidden";
+
+    }
 
     let query = searchBarTitle.value;
 
@@ -66,10 +76,10 @@ function createCardsWithMedia(dataSet) {
         showErrorMessageGraphics(resultsBox);
 
     } else {
-        // This is if error message is shown on screen, another condition could be used
-        if ( resultsBox.children[0] && resultsBox.children[0].id === "search-error-container" ) {
-            resultsBox.innerHTML = ``;
-        }
+        // // This is if error message is shown on screen, another condition could be used
+        // if ( resultsBox.children[0] && resultsBox.children[0].id === "search-error-container" ) {
+        //     resultsBox.innerHTML = ``;
+        // }
 
 
         resultsBox.style.flexDirection = "row";
@@ -214,7 +224,6 @@ function createArrayWithRelevantInfo(dataSet) {
         mediaData.id = media.id;
         mediaData.genre_labels = [];
 
-        console.log(media.id)
         for ( let genreId of media.genre_ids ) {
             mediaData.genre_labels.push(getGenreLabelFromId(genreId).toLowerCase())
         }

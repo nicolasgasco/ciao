@@ -190,7 +190,7 @@ footer {
     min-height: 25vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-content: center;
 }
 /* TYPOGRAPHY */
