@@ -2,25 +2,38 @@ const apiKey = `019e3db391209165d704763866329bb3`;
 const language = `en-US`;
 let pageFetchedFromAPI = 1;
 let newSearch = true;
+let userFavorites = [];
 
+// LocalStorage is fetched
+updateChoicesFromLocalStorage()
 
 // In order for these to work, it must be either tv or movie (API terms)
 let movieGenreArray = createObjectGenres("tv");
 let seriesGenreArray = createObjectGenres("movie");
 
 
+window.onunload = saveChoicesToLS;
+
 // Even to trigger search trough button and search bar
 const searchButton = document.querySelector("#search-button");
 searchButton.addEventListener("click", fetchMediaFromKeywords);
+// searchButton.addEventListener("click", saveChoicesToLS);
+
 
 const searchBarTitle = document.querySelector("#search-bar");
 searchBarTitle.addEventListener("change", fetchMediaFromKeywords);
+// searchBarTitle.addEventListener("change", saveChoicesToLS);
+
 
 
 
 const showMoreButton = document.querySelector("#show-more-button");
 showMoreButton.addEventListener("click", showNextPages);
+// showMoreButton.addEventListener("click", saveChoicesToLS);
 
+
+const favoritesLinkButton = document.querySelector("#favorites-link-button");
+// favoritesLinkButton.addEventListener("click", saveChoicesToLS);
 
 
 function showNextPages() {
@@ -110,17 +123,18 @@ function createCardsWithMedia(dataSet) {
                         <div id="in-card-icons">
                             <p>${element[1].vote_average}</p>
                             <p>${element[1].vote_count}</p>
-                            <img class="heart-icons" src="./img/heart.png" alt="Hollow heart icon">
+                            <img onclick="addToFavoritesList(event)" id="heart-icon-${element[1].id}" class="heart-icons" src="./img/heart.png" alt="Hollow heart icon">
 
                         </div>
                     </div>
                 </div>
  
             `
-
+            
         });
 
         document.getElementById("show-more-container").style.visibility = "visible";
+
         
     }
 }
@@ -220,8 +234,8 @@ function createArrayWithRelevantInfo(dataSet) {
         mediaData.release_date = mediaDate;
         mediaData.img = media.poster_path;
         mediaData.overview = media.overview;
-        
         mediaData.id = media.id;
+
         mediaData.genre_labels = [];
 
         for ( let genreId of media.genre_ids ) {
@@ -239,4 +253,54 @@ function createArrayWithRelevantInfo(dataSet) {
     let = objectsArraySorted = objectsArray.sort(function(a, b) {return b[0] - a[0];});
 
     return objectsArraySorted;
+}
+
+function addToFavoritesList(e) {
+    const heartIcon = e.target;
+    heartIcon.removeAttribute("onclick");
+
+    
+    heartIcon.setAttribute("src", "./img/favourite.png");
+    
+
+    const mediaId = e.target.id.split("-")[2];
+    if ( !userFavorites.includes(mediaId) ) {
+        userFavorites.push(mediaId);
+    }
+
+    heartIcon.addEventListener("click", removeFromFavoritesList);
+    console.log(userFavorites);
+}
+
+function removeFromFavoritesList(e) {
+    const heartIcon = e.target;
+    heartIcon.removeEventListener("click", removeFromFavoritesList)
+
+    
+    heartIcon.setAttribute("src", "./img/heart.png");
+    const mediaId = e.target.id.split("-")[2];
+    userFavorites = userFavorites.filter(item => item !== mediaId)
+
+    heartIcon.addEventListener("click", addToFavoritesList);
+    console.log(userFavorites);
+  
+}
+
+function removeSpecificItemFromArray(myArray, item) {
+    let result = [];
+    for (let el of myArray ) {
+        if ( item !== el ) {
+            result.push(item);
+        }
+    }
+    return result;
+}
+
+function saveChoicesToLS() {
+    localStorage.setItem("userChoices", JSON.stringify(userFavorites));
+}
+
+function updateChoicesFromLocalStorage() {
+    const userData = localStorage.getItem("userChoices");
+    JSON.parse(userData).forEach( el => userFavorites.push(el) );
 }
