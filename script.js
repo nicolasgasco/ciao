@@ -1,8 +1,14 @@
 const apiKey = `019e3db391209165d704763866329bb3`;
 const language = `en-US`;
-let genresArray = createObjectMovieGenres();
+let pageFetchedFromAPI = 1;
 
 
+// In order for these to work, it must be either tv or movie (API terms)
+let movieGenreArray = createObjectGenres("tv");
+let seriesGenreArray = createObjectGenres("movie");
+
+
+// Even to trigger search trough button and search bar
 const searchButton = document.querySelector("#search-button");
 searchButton.addEventListener("click", fetchMediaFromKeywords);
 
@@ -10,79 +16,51 @@ const searchBarTitle = document.querySelector("#search-bar");
 searchBarTitle.addEventListener("change", fetchMediaFromKeywords);
 
 
-
-
-
-
 function fetchMediaFromKeywords(e) {
 
     let query = searchBarTitle.value;
 
 
-    let link = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=${language}&query=${query}&page=1&include_adult=false`;
+    let link = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=${language}&query=${query}&page=${pageFetchedFromAPI}&include_adult=false`;
     fetch(link).then( function (response) {
         return response.json();
     }).then( function(data) {
+        let totalPagesToFetch = data.total_pages;
         createCardsWithMedia(data);
 
 
     })
+    // .catch( (error) => {
+    //     console.log("ERROR: ", error)
+    //     const resultsBox = document.querySelector("#results-box");
+    //     showErrorMessageGraphics(resultsBox);
+    // });
 
 }
 
 function createCardsWithMedia(dataSet) {
     
-    let resultsBox = document.querySelector("#results-box");
+    const resultsBox = document.querySelector("#results-box");
     let posterSize = 300; 
 
     resultsBox.innerHTML = ``;
 
     if ( dataSet.results.length === 0 ) {
-        resultsBox.style.flexDirection = "column";
-        resultsBox.style.alignItems = "center";
-        
-        resultsBox.innerHTML =
-        `
-        <h2>Oops! It looks like you know more than us on cinema...</h2>
-        <small>(Either that or the media you're looking for doesn't exist.)</small>
-        <img src="./img/nothing_found.png" alt="Illustration for nothing found">
-        `
+
+        showErrorMessageGraphics(resultsBox);
 
     } else {
+
+        // function showCardsOnPage () {
         resultsBox.style.flexDirection = "row";
         resultsBox.style.alignItems = "baseline";
 
-        let objectsArray = [];
-        for ( media of dataSet.results) {
-            
-            if ( media.title ) {
+        let objectsArraySorted = createArrayWithRelevantInfo(dataSet);
+        // }
 
-                let mediaData = new Object()
-                
 
-                mediaData.title =  media.title;
-                mediaData.id = media.id;
-                mediaData.img = media.poster_path;
-                mediaData.overview = media.overview;
-                mediaData.release_date = media.release_date;
-                // mediaData.popularity = media.popularity;
+ 
 
-                mediaData.genre_labels = [];
-                for ( let genreId of media.genre_ids ) {
-                    mediaData.genre_labels.push(getGenreLabelFromId(genreId).toLowerCase())
-                }
-
-                mediaData.vote_average = media.vote_average;
-                mediaData.vote_count = media.vote_count;
-                
-                let singleMedia = [media.vote_count, mediaData];
-                objectsArray.push(singleMedia);
-
-            }
-
-            
-        }
-        let = objectsArraySorted = objectsArray.sort(function(a, b) {return b[0] - a[0];});
         
         objectsArraySorted.forEach( element => {
 
@@ -103,7 +81,7 @@ function createCardsWithMedia(dataSet) {
                     </div>
                     <div class="media-card-text" id="media-card-text-${element[1].id}">
                         <h3>${element[1].title} (${element[1]["release_date"].substring(0,4)})</h3>
-                        <p>Genres: ${element[1].genre_labels.join(", ")}.</p>            
+                        <p><span class="bold uppercase">Genres:</span> ${element[1].genre_labels.join(", ")}.</p>            
                         <p>Vote: ${element[1].vote_average}</p>
                         <p>Vote count: ${element[1].vote_count}</p>
                     </div>
@@ -136,16 +114,16 @@ function showBacksideCard(e, id) {
 }
 
 
-function createObjectMovieGenres() {
-    let url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=${language}`
-    let genresArray = []
+function createObjectGenres(mediaType) {
+    let url = `https://api.themoviedb.org/3/genre/${mediaType}/list?api_key=${apiKey}&language=${language}`
+    let genresArray = [];
     
     fetch(url)
     .then( res => res.json() )
     .then( data => {
         
-        data.genres.forEach( genre => genresArray.push( {"id": genre.id, "name": genre.name} ));
-
+        data.genres.forEach( genre => genresArray.push( {"id": genre.id, "name": genre.name} ) );
+    
         
     })
     return genresArray;
@@ -153,11 +131,70 @@ function createObjectMovieGenres() {
 
 
 function getGenreLabelFromId(id) {
-    for ( let index in genresArray ) {
-        if ( genresArray[index]["id"] === id ) {
-            return genresArray[index]["name"];
+    let result;
+    for ( let index in movieGenreArray ) {
+        if ( movieGenreArray[index]["id"] === id ) {
+            result = movieGenreArray[index]["name"];
+        }
+    }
+
+    if ( result ) {
+        return result;
+    } else {
+        for ( let index in seriesGenreArray ) {
+            if ( seriesGenreArray[index]["id"] === id ) {
+                return seriesGenreArray[index]["name"];
+            }
         }
     }
 }
 
 
+function showErrorMessageGraphics(targetDiv) {
+    targetDiv.style.flexDirection = "column";
+    targetDiv.style.alignItems = "center";
+    
+    targetDiv.innerHTML =
+    `
+    <h2>Oops! It looks like you know more than us on cinema...</h2>
+    <small>(Either that or the film you're looking for doesn't exist.)</small>
+    <img src="./img/nothing_found.png" alt="Illustration for nothing found">
+    `
+}
+
+function createArrayWithRelevantInfo(dataSet) {
+    let objectsArray = [];
+    for ( media of dataSet.results) {
+        // Title is called name for TV series
+        let mediaTitle = ( media.title == undefined ) ? media.name : media.title;
+        // Release_date is first_air_date for series
+        let mediaDate = ( media.release_date == undefined ) ? media.first_air_date : media.release_date;
+        
+        if ( mediaTitle ) {
+
+            let mediaData = new Object()
+            
+
+            mediaData.title =  mediaTitle;
+            mediaData.release_date = mediaDate;
+            mediaData.img = media.poster_path;
+            mediaData.overview = media.overview;
+            
+            mediaData.id = media.id;
+            mediaData.genre_labels = [];
+            for ( let genreId of media.genre_ids ) {
+                mediaData.genre_labels.push(getGenreLabelFromId(genreId).toLowerCase())
+            }
+
+            mediaData.vote_average = media.vote_average;
+            mediaData.vote_count = media.vote_count;
+            
+            let singleMedia = [media.vote_count, mediaData];
+            objectsArray.push(singleMedia);
+        }
+
+    }
+    let = objectsArraySorted = objectsArray.sort(function(a, b) {return b[0] - a[0];});
+
+    return objectsArraySorted;
+}
