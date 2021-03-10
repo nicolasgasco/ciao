@@ -116,7 +116,7 @@ footer {
     width: 22%;
     min-height: 90vh;
     height: 90vh;
-    margin: 0;
+    margin: auto 0;
 }
 
 .poster-pic {
