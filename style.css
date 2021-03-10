@@ -110,24 +110,22 @@ footer {
 }
 
 .media-card {
-
-    /* width: 20vw; */
     min-width: 300px;
-    width: 22%;
-    min-height: 90vh;
-    height: 90vh;
+    width: 20vw;
+    min-height: 66vh;
+    /* Need this to keep them in place after animation */
     margin: auto 0;
-}
-
-.poster-pic {
-    width: 100%;
-    height: 60%;
-    object-fit: cover;
-
-}
-
-.media-card-text, .hidden-text {
     padding: 1rem;
+}
+
+.poster-pic, .hidden-text {
+    height: 40vh;
+}
+.poster-pic {
+    min-width: 275px;
+    width: 100%;
+    /* Height is together with hidden-text so that they occupy the same space */
+    object-fit: cover;
 }
 
 .hidden-text {

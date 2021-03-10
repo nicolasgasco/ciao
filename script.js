@@ -1,6 +1,5 @@
 const apiKey = `019e3db391209165d704763866329bb3`;
 const language = `en-US`;
-
 let genresArray = createObjectMovieGenres();
 
 
@@ -96,9 +95,12 @@ function createCardsWithMedia(dataSet) {
             const description = element[1].overview;
             resultsBox.innerHTML +=
                 `
-                <div class="media-card" id="${element[1].id}" onclick="showBacksideCard(event, ${element[1].id})">
-                    <img src="${posterUrl}" alt="Poster picture of ${element[1].title}" class="poster-pic">
-                    <p class="hidden-text" id="hidden-text-${element[1].id}">${description}</p>
+                <div class="media-card" id="media-card-${element[1].id}" onmouseover="showBacksideCard(event, ${element[1].id})">
+                    <img src="${posterUrl}" alt="Poster picture of ${element[1].title}" class="poster-pic" id="poster-pic-${element[1].id}">
+                    <div class="hidden-text" id="hidden-text-${element[1].id}">
+                        <p>${description}</p>
+                        <hr>
+                    </div>
                     <div class="media-card-text" id="media-card-text-${element[1].id}">
                         <h3>${element[1].title} (${element[1]["release_date"].substring(0,4)})</h3>
                         <p>Genres: ${element[1].genre_labels.join(", ")}.</p>            
@@ -115,20 +117,21 @@ function createCardsWithMedia(dataSet) {
 }
 
 function showBacksideCard(e, id) {
-    const mediaCard = e.currentTarget;
-    const moviePoster = e.target;
+    const mediaCard = document.querySelector(`#media-card-${id}`);
+    const moviePoster = document.querySelector(`#poster-pic-${id}`);
     const hiddenText = document.querySelector(`#hidden-text-${id}`);
     const shownText = document.querySelector(`#media-card-text-${id}`);
 
-    shownText.style.display = "none";
+    moviePoster.style.display = "none";
     hiddenText.style.display = "block";
+    hiddenText.style.overflow = "auto";
 
-    // hiddenText.addEventListener("click", function () {
-    //     hiddenText.setAttribute("style", "display: none;");
+    mediaCard.removeEventListener("mouseover", showBacksideCard);
 
-
-    //     shownText.style.display = "block";
-    // });
+    mediaCard.addEventListener("mouseout", function () {
+        hiddenText.style.display = "none";
+        moviePoster.style.display = "inline";
+    });
 
 }
 
