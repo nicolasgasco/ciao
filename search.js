@@ -38,6 +38,7 @@ const favoritesLinkButton = document.querySelector("#favorites-link-button");
 
 
 function fetchMediaFromKeywords(e, freshSearch=true) {
+    console.log(userFavorites)
     const apiKey = `019e3db391209165d704763866329bb3`;
     const language = `en-US`;
     const resultsBox = document.querySelector("#results-box");

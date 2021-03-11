@@ -5,7 +5,9 @@ const seriesGenreArray = createObjectGenres("movie");
 
 window.onload = function () {
     wipeCleanResultsArea();
-    createFavoritesCards();
+    if ( userFavorites.length !== 0 ) {
+        createFavoritesCards();
+    }
 }
 
 function createFavoritesCards(mediaObjects) {
@@ -32,9 +34,9 @@ function fetchMediaFromID(id, type) {
         createCardsWithId(data, type);
     })
     .catch( (error) => {
-        // console.log("ERROR: ", error)
-        // const resultsBox = document.querySelector("#results-box");
-        // showErrorMessageGraphics(resultsBox);
+        console.log("ERROR: ", error)
+        const resultsBox = document.querySelector("#results-box");
+        showErrorMessageGraphics(resultsBox);
     });
 
 }
@@ -45,11 +47,13 @@ function createCardsWithId(dataSet, type) {
     
     let posterSize = 300; 
 
-    // Creating gerne_labels
+    // Creating gerne_labels if not empty
     genre_labels = [];
-    for ( let genreId of dataSet.genres ) {
-        genre_labels.push(getGenreLabelFromId(genreId.id).toLowerCase())
-    }
+    if ( dataSet.genres ) {
+        for ( let genreId of dataSet.genres ) {
+            genre_labels.push(getGenreLabelFromId(genreId.id).toLowerCase())
+        }
+    }  
 
     // Sometimes genre is not provided
     let genreLabelsLine;
@@ -86,7 +90,6 @@ function createCardsWithId(dataSet, type) {
 
     const mediaType = type;
 
-    console.log(genreLabelsLine)
     favoritesBox.innerHTML +=
                 `
                 <div class="media-card" id="media-card-${dataSet.id}" onmouseover="showBacksideCard(event, ${dataSet.id})">
