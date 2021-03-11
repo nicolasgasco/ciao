@@ -3,10 +3,14 @@ let userFavorites = fetchChoicesFromLocalStorage();
 const movieGenreArray = createObjectGenres("tv");
 const seriesGenreArray = createObjectGenres("movie");
 
+
+
 window.onload = function () {
     wipeCleanResultsArea();
     if ( userFavorites.length !== 0 ) {
         createFavoritesCards();
+    } else {
+        showEmptyPageText()
     }
 }
 
@@ -195,6 +199,10 @@ function removeFromFavoritesList(e) {
     document.getElementById(`media-card-${mediaId}`).remove();
 
     saveChoicesToLS();
+
+    if ( userFavorites.length === 0 ) {
+        showEmptyPageText();
+    }
 }
 
 function saveChoicesToLS() {
@@ -204,4 +212,8 @@ function saveChoicesToLS() {
 function wipeCleanResultsArea() {
     const favoritesBox = document.querySelector("#favorites-box");
     favoritesBox.innerHTML = ``;
+}
+
+function showEmptyPageText() {
+    document.querySelector("#error-box").style.display = "block";
 }
