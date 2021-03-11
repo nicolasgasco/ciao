@@ -1,9 +1,7 @@
 /* MEDIA QUERIES */
 
 /* HOMEPAGE */
-
-@media (max-width: 600px) {
-
+@media (max-width: 1100px) {
     .logo {
         margin: 0 !important;
         padding: 1rem !important;
@@ -29,6 +27,11 @@
 
     }
 
+}
+
+@media (max-width: 600px) {
+
+    
     .home-pic {
         display: none;
     }
@@ -75,11 +78,12 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    flex-wrap: wrap;
     align-content: center;
 }
 
+
 .top-header {
+    flex-wrap: wrap;
     padding: 2vh 10vw;
 
     width: 100%;
@@ -113,13 +117,21 @@ footer {
 }
 
 .home-container > * {
-    margin: 10vh;
+    margin: 5rem 2rem;
 
+}
+
+.welcome-text {
+    flex-shrink: 1;
+}
+
+.home-pic {
+    flex-shrink: 3;
 }
 
 
 .welcome-text {
-    max-width: 30vw;
+    max-width: 50vw;
 
 }
 
@@ -298,7 +310,8 @@ footer {
 }
 
 .home-pic {
-    width: 25vw;
+    min-width: 250px;
+    max-width: 450px;
 }
 
 .text-container > * {
