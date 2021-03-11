@@ -108,6 +108,14 @@ function createCardsWithMedia(dataSet) {
             }
 
             const description = element[1].overview;
+
+            let heartIcon;
+            if ( checkifIdInLocalStorage(element[1].id) ) {
+                heartIcon = `<img onclick="removeFromFavoritesList(event)" id="favorite-icon-${element[1].id}" class="heart-icons" src="./img/favourite.png" alt="Favorite icon">`;
+            } else {
+                heartIcon = `<img onclick="addToFavoritesList(event)" id="heart-icon-${element[1].id}" class="heart-icons" src="./img/heart.png" alt="Hollow heart icon">`;
+            }
+
             resultsBox.innerHTML +=
                 `
                 <div class="media-card" id="media-card-${element[1].id}" onmouseover="showBacksideCard(event, ${element[1].id})">
@@ -123,8 +131,7 @@ function createCardsWithMedia(dataSet) {
                         <div id="in-card-icons">
                             <p>${element[1].vote_average}</p>
                             <p>${element[1].vote_count}</p>
-                            <img onclick="addToFavoritesList(event)" id="heart-icon-${element[1].id}" class="heart-icons" src="./img/heart.png" alt="Hollow heart icon">
-
+                            ${heartIcon}
                         </div>
                     </div>
                 </div>
@@ -259,6 +266,7 @@ function createArrayWithRelevantInfo(dataSet) {
 }
 
 function addToFavoritesList(e) {
+    console.log(event);
     const heartIcon = e.target;
     heartIcon.removeAttribute("onclick");
 
@@ -313,6 +321,22 @@ function createChoicesArrayFromLocalStorage() {
     return userFavorites;
 }
 
+function fetchChoicesFromLocalStorage() {
+    const userData = localStorage.getItem("userChoices");
+    return JSON.parse(userData);
+}
+
+function checkifIdInLocalStorage(id) {
+    let userData = fetchChoicesFromLocalStorage();
+
+    for ( let data of userData ) {
+        if ( data.id == id ) {
+            return true;
+        }
+    }
+    return false;
+
+}
 // function removeSpecificItemFromArray(myArray, item) {
 //     let result = [];
 //     for (let el of myArray ) {
