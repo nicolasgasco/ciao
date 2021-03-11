@@ -139,8 +139,8 @@ footer {
     padding: 1rem;
 }
 
-.poster-pic, .hidden-text {
-    height: 40vh;
+.poster-pic {
+
 }
 .poster-pic {
     min-width: 275px;
@@ -149,11 +149,16 @@ footer {
     object-fit: cover;
 }
 
+.invisible-text {
+    visibility: "hidden";
+}
+
 .hidden-text {
     display: none;
     margin: 0;
-    overflow:hidden ;
+    overflow: hidden;
     min-height: 15rem;
+    height: 40vh;
 }
 
 #search-error-container {

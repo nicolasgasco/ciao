@@ -19,10 +19,19 @@ const searchBarTitle = document.querySelector("#search-bar");
 searchBarTitle.addEventListener("change", fetchMediaFromKeywords);
 
 
-
-
-const showMoreButton = document.querySelector("#show-more-button");
+// General event for show more button
+let showMoreButton = document.querySelector("#show-more-button");
 showMoreButton.addEventListener("click", showNextPages);
+
+// Make text appear on hover only
+let showMoreText = document.querySelector("#show-more-text");
+
+showMoreButton.addEventListener("mouseenter", function () {
+    showMoreText.style.visibility = "visible";
+});
+showMoreButton.addEventListener("mouseleave", function () {
+    showMoreText.style.visibility = "hidden";
+});
 
 
 const favoritesLinkButton = document.querySelector("#favorites-link-button");
@@ -41,11 +50,12 @@ function showNextPages() {
 }
 
 
+
 function fetchMediaFromKeywords(e) {
     const apiKey = `019e3db391209165d704763866329bb3`;
     const language = `en-US`;
     const resultsBox = document.querySelector("#results-box");
-    const showMoreButton = document.querySelector("#show-more-container");
+    const showMoreButton = document.querySelector("#show-more-button");
     
     if ( e.target.id === "search-bar" || e.target.id === "search-button" ) {
         resultsBox.innerHTML = ``;
@@ -162,9 +172,9 @@ function createCardsWithMedia(dataSet, page) {
 
         // Hidden Show more button when there are no more results to fetch
         if ( page !== totalPagesToFetch ) {
-            document.getElementById("show-more-container").style.visibility = "visible";
+            document.getElementById("show-more-button").style.visibility = "visible";
         } else {
-            document.getElementById("show-more-container").style.visibility = "hidden";
+            document.getElementById("show-more-button").style.visibility = "hidden";
             document.getElementById("no-more-to-show").style.visibility = "visible";
         }
         
