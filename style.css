@@ -69,10 +69,14 @@ footer {
     min-height: 15vh;
 }
 
+.centered-text {
+    text-align: center;
+}
+
 #search-box {
     width: 95vw;
     margin: 10vh auto;
-    text-align: center;
+
 }
 
 #search-box-form {
@@ -180,7 +184,6 @@ footer {
 #favorites-header {
     width: 100vw;
     margin-top: 18vh;
-    text-align: center;
 }
 
 #top-box-search {
@@ -204,6 +207,14 @@ footer {
     flex-direction: column;
     justify-content: space-between;
     align-content: center;
+}
+
+#hamster-text {
+    margin-top: 2rem;
+}
+#cute-hamster {
+    margin-top: 2rem;
+    width: 250px;
 }
 /* TYPOGRAPHY */
 
@@ -358,7 +369,7 @@ footer, .top-box {
 
 }
 .media-card:hover {
-    transform: translate3d(0px, -10px, 0px);
+    transform: translate3d(0px, -3px, 0px);
     transition-duration: 0.5s;
 }
 
