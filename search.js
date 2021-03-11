@@ -26,10 +26,10 @@ showMoreButton.addEventListener("click", showNextPages);
 // Make text appear on hover only
 let showMoreText = document.querySelector("#show-more-text");
 
-showMoreButton.addEventListener("mouseenter", function () {
+showMoreButton.addEventListener("mouseover", function () {
     showMoreText.style.visibility = "visible";
 });
-showMoreButton.addEventListener("mouseleave", function () {
+showMoreButton.addEventListener("mouseout", function () {
     showMoreText.style.visibility = "hidden";
 });
 
@@ -67,7 +67,6 @@ function fetchMediaFromKeywords(e) {
 
 
     let link = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=${language}&query=${query}&page=${pageFetchedFromAPI}&include_adult=false`;
-    console.log(link)
 
     fetch(link).then( function (response) {
         return response.json();
@@ -85,7 +84,10 @@ function fetchMediaFromKeywords(e) {
 }
 
 function createCardsWithMedia(dataSet, page) {
-    
+
+    // Resetting "no more to show"
+    document.getElementById("no-more-to-show").style.visibility = "hidden";
+
     const resultsBox = document.querySelector("#results-box");
     let posterSize = 300; 
 
@@ -170,6 +172,8 @@ function createCardsWithMedia(dataSet, page) {
             
         });
 
+        console.log(page);
+        console.log(totalPagesToFetch);
         // Hidden Show more button when there are no more results to fetch
         if ( page !== totalPagesToFetch ) {
             document.getElementById("show-more-button").style.visibility = "visible";
