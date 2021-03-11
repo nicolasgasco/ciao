@@ -66,11 +66,11 @@ function fetchMediaFromKeywords(e) {
 
         createCardsWithMedia(data, pageFetchedFromAPI);
     })
-    .catch( (error) => {
-        console.log("ERROR: ", error)
-        const resultsBox = document.querySelector("#results-box");
-        showErrorMessageGraphics(resultsBox);
-    });
+    // .catch( (error) => {
+    //     console.log("ERROR: ", error)
+    //     const resultsBox = document.querySelector("#results-box");
+    //     showErrorMessageGraphics(resultsBox);
+    // });
 
 }
 
@@ -362,11 +362,14 @@ function fetchChoicesFromLocalStorage() {
 }
 
 function checkifIdInLocalStorage(id) {
-    let userData = fetchChoicesFromLocalStorage();
 
-    for ( let data of userData ) {
-        if ( data.id == id ) {
-            return true;
+    let userData = fetchChoicesFromLocalStorage();
+    if ( userData ) {
+
+        for ( let data of userData ) {
+            if ( data.id == id ) {
+                return true;
+            }
         }
     }
     return false;
