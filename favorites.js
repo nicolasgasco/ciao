@@ -1,11 +1,13 @@
 const userFavorites = fetchChoicesFromLocalStorage();
-console.log(userFavorites)
 
 const movieGenreArray = createObjectGenres("tv");
 const seriesGenreArray = createObjectGenres("movie");
 
-
-createFavoritesCards();
+window.onload = function () {
+    const favoritesBox = document.querySelector("#favorites-box");
+    favoritesBox.innerHTML = ``;
+    createFavoritesCards();
+}
 
 
 function createFavoritesCards(mediaObjects) {
@@ -22,6 +24,7 @@ function fetchChoicesFromLocalStorage() {
     return JSON.parse(userData);
 }
 
+
 function fetchMediaFromID(id, type) {
     const apiKey = `019e3db391209165d704763866329bb3`;
     const language = `en-US`;
@@ -35,7 +38,6 @@ function fetchMediaFromID(id, type) {
         let dataArray = [];
         
         const favoritesBox = document.querySelector("#favorites-box");
-        favoritesBox.innerHTML = ``;
 
         createCardsWithId(data);
     })
