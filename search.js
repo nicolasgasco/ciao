@@ -57,6 +57,8 @@ function fetchMediaFromKeywords(e) {
 
 
     let link = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=${language}&query=${query}&page=${pageFetchedFromAPI}&include_adult=false`;
+    console.log(link)
+
     fetch(link).then( function (response) {
         return response.json();
     }).then( function(data) {
@@ -99,6 +101,7 @@ function createCardsWithMedia(dataSet, page) {
 
 
         objectsArraySorted.forEach( element => {
+            const description = element[1].overview;
 
             // Some posters are missing
             let posterUrl;
@@ -108,8 +111,6 @@ function createCardsWithMedia(dataSet, page) {
                 posterUrl = `./img/image_unavailable.png`;
             }
 
-            const description = element[1].overview;
-
             // Sometimes dates can be missing
             let titleWithDate;
             if ( element[1].release_date ) {
@@ -117,6 +118,14 @@ function createCardsWithMedia(dataSet, page) {
             } else {
                 titleWithDate = `<h3>${element[1].title}</h3>`;
             }
+
+            // Sometimes genre is not provided
+            let genreLabels;
+            if ( element[1].genre_labels.length !== 0 ) {
+                genreLabels = `<p><span class="bold uppercase">Genres:</span> ${element[1].genre_labels.join(", ")}</p>`
+            } else {
+                genreLabels = `<p><span class="bold uppercase">Genres:</span> no info available</p>`
+            }      
 
             // Remember if film was liked or not
             let heartIcon;
@@ -132,12 +141,13 @@ function createCardsWithMedia(dataSet, page) {
                     <img src="${posterUrl}" alt="Poster picture of ${element[1].title}" class="poster-pic" id="poster-pic-${element[1].id}">
                     <div class="hidden-text" id="hidden-text-${element[1].id}">
                         <p>${description}</p>
-                        <hr>
                     </div>
+                    <hr>
                     <div class="media-card-text" id="media-card-text-${element[1].id}">
                         ${titleWithDate}
-                        <p class="type-text"><span class="bold uppercase">Type:</span> ${element[1].media_type}</p>            
-                        <p><span class="bold uppercase">Genres:</span> ${element[1].genre_labels.join(", ")}</p>            
+
+                        <p class="type-text"><span class="bold uppercase">Type:</span> ${element[1].media_type}</p>           
+                        ${genreLabels}
                         <div id="in-card-icons">
                             <p>${element[1].vote_average}</p>
                             <p>${element[1].vote_count}</p>
@@ -149,8 +159,6 @@ function createCardsWithMedia(dataSet, page) {
             `
             
         });
-        console.log(page);
-        console.log(totalPagesToFetch);
 
         // Hidden Show more button when there are no more results to fetch
         if ( page !== totalPagesToFetch ) {
@@ -285,6 +293,7 @@ function createArrayWithRelevantInfo(dataSet) {
 }
 
 function addToFavoritesList(e) {
+    console.log("add")
     const heartIcon = e.target;
     heartIcon.removeAttribute("onclick");
 
@@ -295,8 +304,6 @@ function addToFavoritesList(e) {
     heartIcon.setAttribute("src", "./img/favourite.png");
     heartIcon.setAttribute("id", `favorite-icon-${mediaId}`);
     heartIcon.setAttribute("alt", "Favorite icon");
-
-    console.log(!userFavorites.includes(mediaId))
 
     let mediaObject = {
         "id": mediaId,
@@ -313,7 +320,11 @@ function addToFavoritesList(e) {
 }
 
 function removeFromFavoritesList(e) {
+    console.log("remove")
+
     const heartIcon = e.target;
+    const mediaId = e.target.id.split("-")[2];
+
     heartIcon.removeEventListener("click", removeFromFavoritesList)
 
     
@@ -321,8 +332,8 @@ function removeFromFavoritesList(e) {
     heartIcon.setAttribute("id", `heart-icon-${mediaId}`);
     heartIcon.setAttribute("alt", "Hollow heart icon");
 
+    
 
-    const mediaId = e.target.id.split("-")[2];
 
     // Remove from list
     userFavorites = userFavorites.filter(item => item.id !== mediaId)
@@ -361,12 +372,3 @@ function checkifIdInLocalStorage(id) {
     return false;
 
 }
-// function removeSpecificItemFromArray(myArray, item) {
-//     let result = [];
-//     for (let el of myArray ) {
-//         if ( item !== el ) {
-//             result.push(item);
-//         }
-//     }
-//     return result;
-// }
