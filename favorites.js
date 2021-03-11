@@ -1,4 +1,4 @@
-const userFavorites = fetchChoicesFromLocalStorage();
+let userFavorites = fetchChoicesFromLocalStorage();
 
 const movieGenreArray = createObjectGenres("tv");
 const seriesGenreArray = createObjectGenres("movie");
@@ -95,7 +95,7 @@ function createCardsWithId(dataSet) {
                 <div id="in-card-icons">
                     <p>${dataSet.vote_average}</p>
                     <p>${dataSet.vote_count}</p>
-                    <img onclick="addToFavoritesList(event)" id="heart-icon-${dataSet.id}" class="heart-icons" src="./img/heart.png" alt="Hollow heart icon">
+                    <img onclick="removeFromFavoritesList(event)" id="favorite-icon-${dataSet.id}" class="heart-icons" src="./img/favourite.png" alt="Favorite icon">
 
                 </div>
             </div>
@@ -145,5 +145,48 @@ function getGenreLabelFromId(id) {
             }
         }
     }
+}
+
+function showBacksideCard(e, id) {
+    const mediaCard = document.querySelector(`#media-card-${id}`);
+    const moviePoster = document.querySelector(`#poster-pic-${id}`);
+    const hiddenText = document.querySelector(`#hidden-text-${id}`);
+    const shownText = document.querySelector(`#media-card-text-${id}`);
+    let hiddenParagraph = document.querySelector(`#hidden-text-${id} p`);
+
+    if ( !hiddenParagraph.innerText ) {
+        hiddenParagraph.innerText = "No description available."
+    } 
+    moviePoster.style.display = "none";
+    hiddenText.style.display = "block";
+    hiddenText.style.overflow = "auto";
+
+    mediaCard.removeEventListener("mouseover", showBacksideCard);
+
+    mediaCard.addEventListener("mouseout", function () {
+        hiddenText.style.display = "none";
+        moviePoster.style.display = "inline";
+    });
+
+}
+
+
+function removeFromFavoritesList(e) {
+    let heartIcon = e.target;
+    heartIcon.removeEventListener("click", removeFromFavoritesList);
+
+
+    const mediaId = e.target.id.split("-")[2];
+
+    // Remove from list
+    userFavorites = userFavorites.filter(item => item.id !== mediaId)
+    
+    document.getElementById(`media-card-${mediaId}`).remove();
+
+    saveChoicesToLS();
+}
+
+function saveChoicesToLS() {
+    localStorage.setItem("userChoices", JSON.stringify(userFavorites));
 }
 
