@@ -37,21 +37,7 @@ showMoreButton.addEventListener("mouseout", function () {
 const favoritesLinkButton = document.querySelector("#favorites-link-button");
 
 
-function showNextPages() {
-
-    pageFetchedFromAPI++
-    const resultsBox = document.querySelector("#results-box");
-
-    // In this version, page is not reset when fetching new results
-    // resultsBox.innerHTML = ``;
-
-    fetchMediaFromKeywords(event);
-
-}
-
-
-
-function fetchMediaFromKeywords(e) {
+function fetchMediaFromKeywords(e, freshSearch=true) {
     const apiKey = `019e3db391209165d704763866329bb3`;
     const language = `en-US`;
     const resultsBox = document.querySelector("#results-box");
@@ -60,11 +46,13 @@ function fetchMediaFromKeywords(e) {
     if ( e.target.id === "search-bar" || e.target.id === "search-button" ) {
         resultsBox.innerHTML = ``;
         showMoreButton.style.visibility = "hidden";
+    }
 
+    if ( freshSearch ) {
+        pageFetchedFromAPI = 1;
     }
 
     let query = searchBarTitle.value;
-
 
     let link = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=${language}&query=${query}&page=${pageFetchedFromAPI}&include_adult=false`;
 
@@ -172,8 +160,6 @@ function createCardsWithMedia(dataSet, page) {
             
         });
 
-        console.log(page);
-        console.log(totalPagesToFetch);
         // Hidden Show more button when there are no more results to fetch
         if ( page !== totalPagesToFetch ) {
             document.getElementById("show-more-button").style.visibility = "visible";
@@ -307,7 +293,6 @@ function createArrayWithRelevantInfo(dataSet) {
 }
 
 function addToFavoritesList(e) {
-    console.log("add")
     const heartIcon = e.target;
     heartIcon.removeAttribute("onclick");
 
@@ -334,7 +319,6 @@ function addToFavoritesList(e) {
 }
 
 function removeFromFavoritesList(e) {
-    console.log("remove")
 
     const heartIcon = e.target;
     const mediaId = e.target.id.split("-")[2];
@@ -387,5 +371,17 @@ function checkifIdInLocalStorage(id) {
         }
     }
     return false;
+
+}
+
+function showNextPages() {
+
+    pageFetchedFromAPI++
+    const resultsBox = document.querySelector("#results-box");
+
+    // In this version, page is not reset when fetching new results
+    // resultsBox.innerHTML = ``;
+
+    fetchMediaFromKeywords(event, false);
 
 }
