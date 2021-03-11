@@ -24,6 +24,7 @@ footer{
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    flex-wrap: wrap;
 }
 
 #top-header {
@@ -186,13 +187,10 @@ footer {
     margin-top: 18vh;
 }
 
-#top-box-search {
+.top-box {
     height: 33vh;
 }
 
-#top-box-favorites {
-    height: 30vh;
-}
 
 #in-card-icons {
     display: flex;
@@ -215,6 +213,10 @@ footer {
 #cute-hamster {
     margin-top: 2rem;
     width: 250px;
+}
+
+#no-more-to-show {
+    visibility: hidden;
 }
 /* TYPOGRAPHY */
 

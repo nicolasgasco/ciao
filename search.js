@@ -13,23 +13,19 @@ window.onunload = saveChoicesToLS;
 // Even to trigger search trough button and search bar
 const searchButton = document.querySelector("#search-button");
 searchButton.addEventListener("click", fetchMediaFromKeywords);
-// searchButton.addEventListener("click", saveChoicesToLS);
 
 
 const searchBarTitle = document.querySelector("#search-bar");
 searchBarTitle.addEventListener("change", fetchMediaFromKeywords);
-// searchBarTitle.addEventListener("change", saveChoicesToLS);
 
 
 
 
 const showMoreButton = document.querySelector("#show-more-button");
 showMoreButton.addEventListener("click", showNextPages);
-// showMoreButton.addEventListener("click", saveChoicesToLS);
 
 
 const favoritesLinkButton = document.querySelector("#favorites-link-button");
-// favoritesLinkButton.addEventListener("click", saveChoicesToLS);
 
 
 function showNextPages() {
@@ -64,9 +60,9 @@ function fetchMediaFromKeywords(e) {
     fetch(link).then( function (response) {
         return response.json();
     }).then( function(data) {
-        let totalPagesToFetch = data.total_pages;
+        // let totalPagesToFetch = data.total_pages;
 
-        createCardsWithMedia(data);
+        createCardsWithMedia(data, pageFetchedFromAPI);
     })
     .catch( (error) => {
         console.log("ERROR: ", error)
@@ -76,7 +72,7 @@ function fetchMediaFromKeywords(e) {
 
 }
 
-function createCardsWithMedia(dataSet) {
+function createCardsWithMedia(dataSet, page) {
     
     const resultsBox = document.querySelector("#results-box");
     let posterSize = 300; 
@@ -99,8 +95,13 @@ function createCardsWithMedia(dataSet) {
 
         let objectsArraySorted = createArrayWithRelevantInfo(dataSet);
 
+        let totalPagesToFetch = dataSet.total_pages;
+
+
         objectsArraySorted.forEach( element => {
 
+            // Some posters are missing
+            let posterUrl;
             if ( element[1].img ) {
                 posterUrl = `https://image.tmdb.org/t/p/w${posterSize}/${element[1].img}`;
             } else {
@@ -109,6 +110,15 @@ function createCardsWithMedia(dataSet) {
 
             const description = element[1].overview;
 
+            // Sometimes dates can be missing
+            let titleWithDate;
+            if ( element[1].release_date ) {
+                titleWithDate = `<h3>${element[1].title} (${element[1]["release_date"].substring(0,4)})</h3>`;
+            } else {
+                titleWithDate = `<h3>${element[1].title}</h3>`;
+            }
+
+            // Remember if film was liked or not
             let heartIcon;
             if ( checkifIdInLocalStorage(element[1].id) ) {
                 heartIcon = `<img onclick="removeFromFavoritesList(event)" id="favorite-icon-${element[1].id}" class="heart-icons" src="./img/favourite.png" alt="Favorite icon">`;
@@ -125,7 +135,7 @@ function createCardsWithMedia(dataSet) {
                         <hr>
                     </div>
                     <div class="media-card-text" id="media-card-text-${element[1].id}">
-                        <h3>${element[1].title} (${element[1]["release_date"].substring(0,4)})</h3>
+                        ${titleWithDate}
                         <p class="type-text"><span class="bold uppercase">Type:</span> ${element[1].media_type}</p>            
                         <p><span class="bold uppercase">Genres:</span> ${element[1].genre_labels.join(", ")}</p>            
                         <div id="in-card-icons">
@@ -139,9 +149,16 @@ function createCardsWithMedia(dataSet) {
             `
             
         });
+        console.log(page);
+        console.log(totalPagesToFetch);
 
-        document.getElementById("show-more-container").style.visibility = "visible";
-
+        // Hidden Show more button when there are no more results to fetch
+        if ( page !== totalPagesToFetch ) {
+            document.getElementById("show-more-container").style.visibility = "visible";
+        } else {
+            document.getElementById("show-more-container").style.visibility = "hidden";
+            document.getElementById("no-more-to-show").style.visibility = "visible";
+        }
         
     }
 }
@@ -223,6 +240,8 @@ function showErrorMessageGraphics(targetDiv) {
 }
 
 function createArrayWithRelevantInfo(dataSet) {
+    
+
     let objectsArray = [];
     for ( media of dataSet.results) {
 
