@@ -278,6 +278,13 @@ a, a:visited  {
     letter-spacing: 3px;
 }
 
+.very-small {
+    font-size: small;
+}
+
+.very-big {
+    font-size: xx-large;
+}
 
 /* AESTHETICS */
 

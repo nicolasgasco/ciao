@@ -149,8 +149,8 @@ function createCardsWithMedia(dataSet, page) {
                         <p class="type-text"><span class="bold uppercase">Type:</span> ${element[1].media_type}</p>           
                         ${genreLabels}
                         <div id="in-card-icons">
-                            <p>${element[1].vote_average}</p>
-                            <p>${element[1].vote_count}</p>
+                            <p><span class="very-big">${element[1].vote_average}</span><span class="very-small">/10</span></p>
+                            <p><span class="very-big">${element[1].vote_count}</span> <span class="very-small">votes</span></p>
                             ${heartIcon}
                         </div>
                     </div>

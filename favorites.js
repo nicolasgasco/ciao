@@ -4,26 +4,15 @@ const movieGenreArray = createObjectGenres("tv");
 const seriesGenreArray = createObjectGenres("movie");
 
 window.onload = function () {
-    const favoritesBox = document.querySelector("#favorites-box");
-    favoritesBox.innerHTML = ``;
+    wipeCleanResultsArea();
     createFavoritesCards();
 }
 
-
 function createFavoritesCards(mediaObjects) {
     for ( let mediaObject of userFavorites ) {
-        
         fetchMediaFromID(mediaObject.id, mediaObject.type);
     }
 }
-
-
-
-function fetchChoicesFromLocalStorage() {
-    const userData = localStorage.getItem("userChoices");
-    return JSON.parse(userData);
-}
-
 
 function fetchMediaFromID(id, type) {
     const apiKey = `019e3db391209165d704763866329bb3`;
@@ -32,6 +21,7 @@ function fetchMediaFromID(id, type) {
     const resultsBox = document.querySelector("#favorites-show");
 
     let link = `https://api.themoviedb.org/3/${type}/${id}?api_key=${apiKey}&language=${language}`;
+
     fetch(link).then( function (response) {
         return response.json();
     }).then( function(data) {
@@ -39,7 +29,7 @@ function fetchMediaFromID(id, type) {
         
         const favoritesBox = document.querySelector("#favorites-box");
 
-        createCardsWithId(data);
+        createCardsWithId(data, type);
     })
     .catch( (error) => {
         // console.log("ERROR: ", error)
@@ -49,28 +39,42 @@ function fetchMediaFromID(id, type) {
 
 }
 
-function createCardsWithId(dataSet) {
+function createCardsWithId(dataSet, type) {
 
     const favoritesBox = document.querySelector("#favorites-box");
     
     let posterSize = 300; 
 
-    // Nothing found, this shouldn't be necessary
-    // if ( dataSet.results.length === 0 ) {
-
-    //     resultsBox.innerHTML = ``;
-    //     showErrorMessageGraphics(resultsBox);
-
-    // } else {
-
-    // }
-
+    // Creating gerne_labels
     genre_labels = [];
-
     for ( let genreId of dataSet.genres ) {
         genre_labels.push(getGenreLabelFromId(genreId.id).toLowerCase())
     }
 
+    // Sometimes genre is not provided
+    let genreLabelsLine;
+    if ( genre_labels.length !== 0 ) {
+        genreLabelsLine = `<p><span class="bold uppercase">Genres:</span> ${genre_labels.join(", ")}</p>`
+    } else {
+        genreLabelsLine = `<p><span class="bold uppercase">Genres:</span> no info available</p>`
+    }
+
+    // Release_date is first_air_date for series
+    let mediaDate = ( dataSet.release_date == undefined ) ? dataSet.first_air_date : dataSet.release_date;
+
+    // Title is called name for TV series
+    let mediaTitle = ( dataSet.title == undefined ) ? dataSet.name : dataSet.title;
+
+    // Sometimes dates can be missing
+    let titleWithDate;
+    if ( mediaDate ) {
+        titleWithDate = `<h3>${mediaTitle} (${mediaDate.substring(0,4)})</h3>`;
+    } else {
+        titleWithDate = `<h3>${mediaTitle}</h3>`;
+    }
+
+    // Creating correct poster path
+    let posterUrl;
     if ( dataSet.poster_path ) {
         posterUrl = `https://image.tmdb.org/t/p/w${posterSize}/${dataSet.poster_path}`;
     } else {
@@ -80,33 +84,37 @@ function createCardsWithId(dataSet) {
 
     const description = dataSet.overview;
 
+    const mediaType = type;
+
+    console.log(genreLabelsLine)
     favoritesBox.innerHTML +=
-        `
-        <div class="media-card" id="media-card-${dataSet.id}" onmouseover="showBacksideCard(event, ${dataSet.id})">
-            <img src="${posterUrl}" alt="Poster picture of ${dataSet.title}" class="poster-pic" id="poster-pic-${dataSet.id}">
-            <div class="hidden-text" id="hidden-text-${dataSet.id}">
-                <p>${description}</p>
-                <hr>
-            </div>
-            <div class="media-card-text" id="media-card-text-${dataSet.id}">
-                <h3>${dataSet.title} (${dataSet["release_date"].substring(0,4)})</h3>
-                <p class="type-text"><span class="bold uppercase">Type:</span> ${dataSet.media_type}</p>            
-                <p><span class="bold uppercase">Genres:</span> ${genre_labels.join(", ")}</p>            
-                <div id="in-card-icons">
-                    <p>${dataSet.vote_average}</p>
-                    <p>${dataSet.vote_count}</p>
-                    <img onclick="removeFromFavoritesList(event)" id="favorite-icon-${dataSet.id}" class="heart-icons" src="./img/favourite.png" alt="Favorite icon">
+                `
+                <div class="media-card" id="media-card-${dataSet.id}" onmouseover="showBacksideCard(event, ${dataSet.id})">
+                    <img src="${posterUrl}" alt="Poster picture of ${mediaTitle}" class="poster-pic" id="poster-pic-${dataSet.id}">
+                    <div class="hidden-text" id="hidden-text-${dataSet.id}">
+                        <p>${description}</p>
+                    </div>
+                    <hr>
+                    <div class="media-card-text" id="media-card-text-${dataSet.id}">
+                        ${titleWithDate}
 
+                        <p class="type-text"><span class="bold uppercase">Type:</span> ${mediaType}</p>           
+                        ${genreLabelsLine}
+                        <div id="in-card-icons">
+                            <p><span class="very-big">${dataSet.vote_average}</span><span class="very-small">/10</span></p>
+                            <p><span class="very-big">${dataSet.vote_count}</span> <span class="very-small">votes</span></p>
+                            <img onclick="removeFromFavoritesList(event)" id="favorite-icon-${dataSet.id}" class="heart-icons" src="./img/favourite.png" alt="Favorite icon">
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+ 
+            `
 
-        `
+}
 
-        
-
-    // document.getElementById("show-more-container").style.visibility = "visible";
-
+function fetchChoicesFromLocalStorage() {
+    const userData = localStorage.getItem("userChoices");
+    return JSON.parse(userData);
 }
 
 function createObjectGenres(mediaType) {
@@ -190,3 +198,7 @@ function saveChoicesToLS() {
     localStorage.setItem("userChoices", JSON.stringify(userFavorites));
 }
 
+function wipeCleanResultsArea() {
+    const favoritesBox = document.querySelector("#favorites-box");
+    favoritesBox.innerHTML = ``;
+}
