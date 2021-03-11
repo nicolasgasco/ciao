@@ -266,29 +266,31 @@ function createArrayWithRelevantInfo(dataSet) {
 }
 
 function addToFavoritesList(e) {
-    console.log(event);
     const heartIcon = e.target;
     heartIcon.removeAttribute("onclick");
-
-    
-    heartIcon.setAttribute("src", "./img/favourite.png");
-    
 
     const mediaId = e.target.id.split("-")[2];
     // Tv or movie
     const mediaType = document.querySelector(".type-text").innerText.split(":")[1].substring(1);
-    console.log(mediaType)
 
-    if ( !userFavorites.includes(mediaId) ) {
-        let mediaObject = {
-            "id": mediaId,
-            "type": mediaType,
-        }
-        userFavorites.push(mediaObject);
+    heartIcon.setAttribute("src", "./img/favourite.png");
+    heartIcon.setAttribute("id", `favorite-icon-${mediaId}`);
+    heartIcon.setAttribute("alt", "Favorite icon");
+
+    console.log(!userFavorites.includes(mediaId))
+
+    let mediaObject = {
+        "id": mediaId,
+        "type": mediaType,
     }
+    userFavorites.push(mediaObject);
+
+    // This condition should be useless
+    // if ( !userFavorites.includes(mediaId) ) {
+  
+    // }
 
     heartIcon.addEventListener("click", removeFromFavoritesList);
-    console.log(userFavorites);
 }
 
 function removeFromFavoritesList(e) {
@@ -297,13 +299,16 @@ function removeFromFavoritesList(e) {
 
     
     heartIcon.setAttribute("src", "./img/heart.png");
+    heartIcon.setAttribute("id", `heart-icon-${mediaId}`);
+    heartIcon.setAttribute("alt", "Hollow heart icon");
+
+
     const mediaId = e.target.id.split("-")[2];
 
     // Remove from list
     userFavorites = userFavorites.filter(item => item.id !== mediaId)
 
     heartIcon.addEventListener("click", addToFavoritesList);
-    console.log(userFavorites);
   
 }
 
