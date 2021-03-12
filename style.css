@@ -361,6 +361,10 @@ a, a:visited  {
     font-size: large;
 }
 
+#show-more-container * {
+ font-size: small;
+}
+
 /* AESTHETICS */
 
 body, #show-more-button {
@@ -509,13 +513,13 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 
     #main-nav-list {
         flex-wrap: nowrap !important;
-        justify-content: space-between !important;
+        justify-content: center !important;
         margin: 0 !important;
         padding: 0 !important;
     }
 
     .nav-items {
-        margin: 0 !important;
+        margin: 0 2rem ;
         padding: 0 0.5rem;
     }
 
@@ -559,6 +563,15 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     .welcome-text {
         max-width: none !important;
         margin: 0 !important;
+    }
+
+    #main-nav-list {
+        justify-content: space-between !important;
+
+    }
+
+    .nav-items {
+        margin: 0;
     }
     /* SEARCH */
 
