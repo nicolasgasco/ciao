@@ -25,15 +25,54 @@
     .nav-items {
         margin: 0 !important;
         padding: 0 !important;
-
     }
 
 }
 
 @media (max-width: 600px) {
+
+
+    /* HOMEPAGE */
+
+
+    .home-container > *, {
+        margin: 0 !important;
+    }
+
+    .welcome-text {
+        max-width: none !important;
+        margin: 0 !important;
+    }
+    /* SEARCH */
+
+    #search-error-container {
+        margin: 0 !important;
+    }
+
+    .media-card-text, .hidden-text {
+        font-size: small !important;
+    }
+
+    /* FAVORITES */
+
+
+    #favorites-header {
+        width: 100vw !important;
+        margin: 0 auto !important;
+        padding: 1rem;
+    }
+
+    #favorites-header > * {
+        margin: 1rem !important;
+    }
+
+    #favorites-box {
+        margin: 1rem 1.7rem !important;
+    }
+
     /* GENERAL */
     body {
-        height: 100vh;
+        min-height: 100vh;
     }
 
     footer * {
@@ -49,39 +88,11 @@
         width: 100% !important;
     }
 
-    /* HOMEPAGE */
-    .home-pic {
+    .home-pic, #empty-folder-woman, #no-data-man, #man-empty-box {
         display: none;
     }
-
-    .home-container > *, {
-        margin: 0 !important;
-    }
-
-    .welcome-text {
-        max-width: none !important;
-        margin: 0 !important;
-    }
-    /* SEARCH */
-
-    #empty-folder-woman, #no-data-man {
-        display: none;
-    }
-
-    #search-error-container {
-        margin: 0 !important;
-    }
-
-    .media-card-text, .hidden-text {
-        font-size: small !important;
-    }
-    
-
 
   }
-
-
-
 
 /* LAYOUT */
 
@@ -295,7 +306,6 @@ footer {
 
 #favorites-header {
     width: 100vw;
-    margin-top: 18vh;
 }
 
 #in-card-icons {
@@ -306,7 +316,7 @@ footer {
 }
 
 .media-card-text {
-    min-height: 25vh;
+    min-height: 30vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -316,9 +326,15 @@ footer {
     margin-top: 2rem;
 }
 
-#empty-folder-woman, #man-empty-box {
+#empty-folder-woman, #no-data-man {
     min-width: 300px;
     max-width: 500px;
+}
+
+#man-empty-box {
+    min-width: 300px;
+    max-width: 400px;
+}
 }
 
 
