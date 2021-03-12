@@ -285,6 +285,25 @@ a, a:hover, a:active {
     font-size: x-small;
 } */
 
+.uppercase-title {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    line-height: 27px;
+    text-transform: uppercase;
+}
+
+.lowercase-title {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 35px;
+}
+
+.normal-paragraph {
+    letter-spacing: 1px;
+    line-height: 28.8px;
+}
 
 .media-card-text, .hidden-text {
     font-size: medium;
@@ -295,7 +314,7 @@ body {
     letter-spacing: 0.5px;
 }
 
-.bold, h1, .standard-button {
+.bold {
     font-weight: bold;
 }
 
@@ -313,6 +332,11 @@ body {
     outline: 7px white solid;
 }
 
+.accented-hover:hover {
+    color: #008BB0 !important;
+    border-color: #008BB0;
+}
+
 .spaced-text {
     line-height: 1.8;
 }
@@ -328,15 +352,14 @@ h1 {
 }
 
 .nav-items {
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 .standard-button {
-    font-size: 0.7rem;
-}
-
-footer, .standard-button {
+    font-weight: bold;
+    font-size: 0.8rem;
     letter-spacing: 1px;
+    text-transform: none;
 }
 
 footer * {
@@ -434,13 +457,13 @@ footer, .top-box {
 }
 
 .accented-links {
-    color: #0BB5E0;
+    color: #008BB0;
 
 }
 
-.accented-link:hover {
-    color: #0BB5E0;
-    border-bottom: 2px solid #0BB5E0;
+.accented-links:hover {
+    color: #008BB0;
+    border-bottom: 1px solid #008BB0;
 
 }
 
