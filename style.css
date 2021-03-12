@@ -1,7 +1,8 @@
 /* MEDIA QUERIES */
 
-/* HOMEPAGE */
+
 @media (max-width: 1100px) {
+    /* HOMEPAGE */
     .logo {
         margin: 0 !important;
         padding: 1rem !important;
@@ -30,30 +31,55 @@
 }
 
 @media (max-width: 600px) {
+    /* GENERAL */
+    body {
+        height: 100vh;
+    }
 
-    
+    footer * {
+        font-size: xx-small !important;
+    }
+
+    .home-container, .search-container {
+        display: block;
+        margin: 1rem 2rem 2rem 2rem !important;
+    }
+
+    .media-card {
+        width: 100% !important;
+    }
+
+    /* HOMEPAGE */
     .home-pic {
         display: none;
     }
 
-    .home-container {
-        display: block;
-        margin-top: 1rem;
-        margin-bottom: 2rem;
-    }
-
-    .home-container > * {
+    .home-container > *, {
         margin: 0 !important;
     }
 
     .welcome-text {
         max-width: none !important;
-        margin: 0;
-        padding: 2rem !important;
+        margin: 0 !important;
     }
+    /* SEARCH */
+
+    #empty-folder-woman, #no-data-man {
+        display: none;
+    }
+
+    #search-error-container {
+        margin: 0 !important;
+    }
+
+    .media-card-text, .hidden-text {
+        font-size: small !important;
+    }
+    
 
 
   }
+
 
 
 
@@ -71,6 +97,10 @@ body {
 
     display:flex; 
     flex-direction:column; 
+}
+
+.top-box {
+    width: 100%;
 }
 
 
@@ -143,9 +173,9 @@ footer {
     padding: 1rem 1.5rem;
     white-space: nowrap
 }
-#search-box-container {
-    margin-top: 14vh;
-    min-height: 15vh;
+#search-box-form {
+    width: 95vw;
+    margin: 5vh auto;
 }
 
 .centered-text {
@@ -153,15 +183,15 @@ footer {
 }
 
 #search-box {
-    width: 95vw;
-    margin: 10vh auto;
+    margin: 0 auto;
 
 }
 
 #search-box-form {
-    width: 90%;
-    height: 7vh;
-    margin: 0 auto;
+    min-width: 70%;
+    max-width: 100%;
+    height: 6vh;
+    margin: 2vh auto;
 
     display: flex;
     justify-content: center;
@@ -169,12 +199,13 @@ footer {
 }
 
 #search-bar {
-    width: 90%;
+    width: 100%;
     height: 100%;
     padding-left: 4rem;
 }
 
 #search-button {
+    min-width: 4rem;
     width: 10%;
     height: 100%;
 
@@ -207,8 +238,8 @@ footer {
 }
 
 .media-card {
-    min-width: 280px;
-    width: 15vw;
+    min-width: 220px;
+    width: 17vw;
     min-height: 66vh;
     /* Need this to keep them in place after animation */
     margin: auto 0;
@@ -284,9 +315,12 @@ footer {
 #empty-folder-text {
     margin-top: 2rem;
 }
-#empty-folder-woman {
-    width: 600px;
+
+#empty-folder-woman, #man-empty-box {
+    min-width: 300px;
+    max-width: 500px;
 }
+
 
 #no-more-to-show {
     visibility: hidden;
@@ -296,13 +330,9 @@ footer {
     display: none;
 }
 
-#man-empty-box {
-    margin: 3rem;
-    width: 600px;
-}
 
 #top-box-index {
-    min-height: 100vh;
+    height: 100vh;
 }
 
 .home-pic {
@@ -314,9 +344,13 @@ footer {
     padding: 1rem;
 }
 /* TYPOGRAPHY */
+a, a:hover, a:active {
+    text-decoration: none;
+}
 
-.media-card-text {
-    font-size: 15px;
+
+.media-card-text, .hidden-text {
+    font-size: x-small;
 }
 
 body {
@@ -383,11 +417,11 @@ a, a:visited  {
 }
 
 .very-small {
-    font-size: small;
+    font-size: xx-small;
 }
 
 .very-big {
-    font-size: xx-large;
+    font-size: large;
 }
 
 /* AESTHETICS */
@@ -458,15 +492,12 @@ footer, .top-box {
     border: 0;
 }
 
-
-
-
-#tmdb {
+.accented-links {
     color: #0BB5E0;
 
 }
 
-#tmdb:hover {
+.accented-link:hover {
     color: #0BB5E0;
     border-bottom: 2px solid #0BB5E0;
 
@@ -488,7 +519,7 @@ footer, .top-box {
 }
 
 #search-bar:focus, #search-bar:hover {
-    box-shadow: inset 0 0 10px #000000;
+    box-shadow: inset 0 0 5px #000000;
 }
 
 #show-more-button {
@@ -504,8 +535,8 @@ footer, .top-box {
 }
 
 .heart-icons {
-    width: 32px;
-    height: 32px;
+    width: 25px;
+    height: 25px;
 }
 
 

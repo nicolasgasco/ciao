@@ -19,28 +19,27 @@
       <nav>
         <ul id="main-nav-list">
           <li class="nav-items"><a href="index.html" class="text-white">Home</a></li>
-          <li class="nav-items"><a href="search.html" class="text-white active-page">Search</a></li>
-          <li id="favorites-link-button" class="nav-items standard-button"><a href="favorites.html" class="text-white">Favorites</a></li>
+          <li class="nav-items"><a href="search.html" class="active-page text-white">Search</a></li>
+          <li class="nav-items"><a href="favorites.html"><button type="submit" class="text-white standard-button">Favorites</button></a></li>
         </ul>
       </nav>
-
     </header>
 
     <main id="search-box-container" class="spaced-text">
           
-      <div id="search-box" class="centered-text text-white">
+      <div id="search-box" class="search-container centered-text text-white">
         <h2 class="uppercase">Start searching now</h2>
         <p>Write the name of the film or the TV series you're looking for.</p>
 
         <div id="search-box-form">
-          <input type="text" id="search-bar" placeholder="Search for a movie or TV series...">
+          <input type="text" id="search-bar" placeholder="Search here...">
           <button type="submit" id="search-button"><img id="search-icon" src="./img/loupe.svg" alt="Search icon"></button>
         </div>
       </div>
     </main>
   </div>
 
-  <div id="results-box" class="results-container">
+  <div id="results-box" class="search-container results-container">
     <div id="empty-folder-text" class="centered-text">
     <h2 class="uppercase">Nothing to see here</h2>
       <p>Make a search to find the perfect movie or series.</p>
@@ -57,8 +56,8 @@
 
 
   <footer class="bottom-footer text-white">
-    <small>Search powered by <a href="https://www.themoviedb.org/" target="_blank" id="tmdb">TMDb</a>.</small>
-    <small>Illustrations by <a href="https://storyset.com/" class="text-white">Freepik Storyset</a>.</small>
+    <small>Search powered by <a href="https://www.themoviedb.org/" target="_blank"><span class="accented-links">TMDb</span></a>.</small>
+    <small>Illustrations by <a href="https://storyset.com/" class="text-white"><span class="accented-links">Freepik Storyset</span></a>.</small>
     <small>Made by Nicolas Gasco.</small>
   </footer>
 

@@ -243,7 +243,7 @@ function showErrorMessageGraphics(targetDiv) {
     
     targetDiv.innerHTML =
     `
-    <div id="search-error-container">
+    <div id="search-error-container" class="search-container">
         <h2>Oops! It looks like you know more than us on cinema...</h2>
         <small>(Either that or the film you're looking for doesn't exist.)</small>
         <img src="./img/no_data.gif" alt="Animation of puzzled man in front of no data error" id="no-data-man">
