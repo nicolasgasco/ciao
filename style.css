@@ -199,29 +199,32 @@ footer {
 #results-box {
     padding: 2%;
     margin: 0 auto;
-
+    justify-content: center;
+    align-content: space-evenly;
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
-    align-content: center;
-    gap: 3rem;
+    gap: 1.5rem;
 }
 
 .media-card {
-    min-width: 300px;
-    width: 20vw;
+    min-width: 280px;
+    width: 15vw;
     min-height: 66vh;
     /* Need this to keep them in place after animation */
     margin: auto 0;
     padding: 1rem;
 }
 
+.poster-pic, .hidden-text {
+    height: 45vh;
+}
 .poster-pic {
     width: 100%;
-    height: 40vh;
     /* Height is together with hidden-text so that they occupy the same space */
     object-fit: cover;
 }
+
+
 
 .invisible-text {
     visibility: "hidden";
@@ -231,8 +234,6 @@ footer {
     display: none;
     margin: 0;
     overflow: hidden;
-    min-height: 15rem;
-    height: 40vh;
 }
 
 #search-error-container {
@@ -273,15 +274,11 @@ footer {
 
 }
 
-.media-card-text > * *{
-    margin: 0;
-}
 .media-card-text {
     min-height: 25vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-content: center;
 }
 
 #empty-folder-text {
@@ -317,6 +314,10 @@ footer {
     padding: 1rem;
 }
 /* TYPOGRAPHY */
+
+.media-card-text {
+    font-size: 15px;
+}
 
 body {
     font-family: "Libre Franklin", Helvetica, sans-serif;

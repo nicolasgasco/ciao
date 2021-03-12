@@ -63,6 +63,9 @@ function fetchMediaFromKeywords(e, freshSearch=true) {
         // let totalPagesToFetch = data.total_pages;
 
         createCardsWithMedia(data, pageFetchedFromAPI);
+
+        // On phones, when fetching new cards, very last one is shown
+
     })
     // .catch( (error) => {
     //     console.log("ERROR: ", error)
@@ -383,6 +386,22 @@ function showNextPages() {
     // In this version, page is not reset when fetching new results
     // resultsBox.innerHTML = ``;
 
+
     fetchMediaFromKeywords(event, false);
+    window.location.hash = fetchIdOfLastMediaCard();
+    // Jump to last item from previous batch
+    // const lastCardId =
+
+    // window.location.hash = lastCardId;
+
+}
+
+function fetchIdOfLastMediaCard() {
+    let resultsBox = document.querySelector("#results-box");
+    const lastCard = resultsBox.children[resultsBox.children.length-1];
+    const lastCardId = lastCard.id;
+
+    return lastCardId;
+
 
 }
