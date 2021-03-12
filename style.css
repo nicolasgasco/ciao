@@ -1,98 +1,4 @@
-/* MEDIA QUERIES */
 
-
-@media (max-width: 1100px) {
-    /* HOMEPAGE */
-    .logo {
-        margin: 0 !important;
-        padding: 1rem !important;
-        margin: 0.5rem auto !important;
-
-    }
-    nav {
-        width: 100%;
-        margin: 1rem auto 0.5rem auto;
-    }
-
-
-    #main-nav-list {
-        flex-wrap: nowrap !important;
-        justify-content: space-between !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .nav-items {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-}
-
-@media (max-width: 600px) {
-
-
-    /* HOMEPAGE */
-
-
-    .home-container > *, {
-        margin: 0 !important;
-    }
-
-    .welcome-text {
-        max-width: none !important;
-        margin: 0 !important;
-    }
-    /* SEARCH */
-
-    #search-error-container {
-        margin: 0 !important;
-    }
-
-    .media-card-text, .hidden-text {
-        font-size: small !important;
-    }
-
-    /* FAVORITES */
-
-
-    #favorites-header {
-        width: 100vw !important;
-        margin: 0 auto !important;
-        padding: 1rem;
-    }
-
-    #favorites-header > * {
-        margin: 1rem !important;
-    }
-
-    #favorites-box {
-        margin: 1rem 1.7rem !important;
-    }
-
-    /* GENERAL */
-    body {
-        min-height: 100vh;
-    }
-
-    footer * {
-        font-size: xx-small !important;
-    }
-
-    .home-container, .search-container {
-        display: block;
-        margin: 1rem 2rem 2rem 2rem !important;
-    }
-
-    .media-card {
-        width: 100% !important;
-    }
-
-    .home-pic, #empty-folder-woman, #no-data-man, #man-empty-box {
-        display: none;
-    }
-
-  }
 
 /* LAYOUT */
 
@@ -105,6 +11,7 @@ body, #main-nav-list ul, #search-button, #search-bar {
 
 body {
     width: 100%;
+    min-height: 100vh;
 
     display:flex; 
     flex-direction:column; 
@@ -124,13 +31,11 @@ body {
 
 
 .top-header {
-    flex-wrap: wrap;
     padding: 2vh 10vw;
 
     width: 100%;
 
     background-color: #131313;
-    z-index: 9999;
 }
 
 .nav-items {
@@ -151,10 +56,11 @@ footer {
 }
 
 .home-container {
+    margin-top: 5rem;
     height: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .home-container > * {
@@ -164,16 +70,11 @@ footer {
 
 .welcome-text {
     flex-shrink: 1;
+    max-width: 30vw;
 }
 
-.home-pic {
+.home-pic, #scared-girls {
     flex-shrink: 3;
-}
-
-
-.welcome-text {
-    max-width: 50vw;
-
 }
 
 .standard-button {
@@ -305,7 +206,7 @@ footer {
 }
 
 #favorites-header {
-    width: 100vw;
+    width: 100%;
 }
 
 #in-card-icons {
@@ -348,22 +249,38 @@ footer {
 
 
 #top-box-index {
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .home-pic {
-    min-width: 250px;
+    min-width: 350px;
     max-width: 450px;
 }
 
+#scared-girls {
+    min-width: 450px;
+    max-width: 550px;
+}
 .text-container > * {
     padding: 1rem;
 }
 /* TYPOGRAPHY */
+
 a, a:hover, a:active {
     text-decoration: none;
 }
 
+/* .home-container h2 {
+    font-size: small;
+}
+
+.home-container h1 {
+    font-size: x-large;
+}
+
+.home-container p {
+    font-size: x-small;
+} */
 
 .media-card-text, .hidden-text {
     font-size: x-small;
@@ -562,3 +479,102 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 }
 
 
+/* MEDIA QUERIES */
+@media (max-width: 1100px) {
+
+
+    /* HOMEPAGE */
+
+    .top-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 2rem;
+    }
+
+    .logo {
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+    nav {
+        width: 100%;
+        margin: 1rem auto 0.5rem auto;
+    }
+
+
+    #main-nav-list {
+        flex-wrap: nowrap !important;
+        justify-content: space-between !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .nav-items {
+        margin: 0 !important;
+        padding: 0 0.5rem;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    /* GENERAL */
+
+    footer * {
+        font-size: xx-small !important;
+    }
+
+    .home-container, .search-container {
+        display: block;
+        margin: 1rem 2rem 2rem 2rem !important;
+    }
+
+    .media-card {
+        width: 100% !important;
+    }
+
+    .home-pic, #empty-folder-woman, #no-data-man, #man-empty-box, #scared-girls {
+        display: none;
+    }
+
+
+    /* HOMEPAGE */
+
+
+    .home-container > *, {
+        margin: 0 !important;
+    }
+
+    .welcome-text {
+        max-width: none !important;
+        margin: 0 !important;
+    }
+    /* SEARCH */
+
+    #search-error-container {
+        margin: 0 !important;
+    }
+
+    .media-card-text, .hidden-text {
+        font-size: small !important;
+    }
+
+    /* FAVORITES */
+
+
+    #favorites-header {
+        width: 100vw !important;
+        margin: 0 auto !important;
+        padding: 1rem;
+    }
+
+    #favorites-header > * {
+        margin: 1rem !important;
+    }
+
+    #favorites-box {
+        margin: 1rem 1.7rem !important;
+    }
+
+  }
