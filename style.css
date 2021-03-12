@@ -267,6 +267,10 @@ footer {
 .text-container > * {
     padding: 1rem;
 }
+
+.bigger-hover {
+    
+}
 /* TYPOGRAPHY */
 
 a, a:hover, a:active {
