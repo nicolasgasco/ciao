@@ -488,6 +488,22 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 
 
 /* MEDIA QUERIES */
+
+@media (min-width: 2000px) {
+    body {
+        width: 75%;
+        margin: 0 auto;
+    };
+}
+
+@media (min-width: 3000px) {
+    body {
+        width: 60%;
+        margin: 0 auto;
+    };
+}
+
+
 @media (max-width: 1100px) {
 
 
