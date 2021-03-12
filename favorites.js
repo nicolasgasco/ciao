@@ -4,6 +4,10 @@ const movieGenreArray = createObjectGenres("tv");
 const seriesGenreArray = createObjectGenres("movie");
 
 
+document.querySelector("#man-empty-box").addEventListener("mouseover", function () {
+    document.querySelector("#man-empty-box").setAttribute("src", "./img/nothing_found.gif");
+});
+
 
 window.onload = function () {
     wipeCleanResultsArea();

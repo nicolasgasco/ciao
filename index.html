@@ -62,15 +62,11 @@
     <small>Made by Nicolas Gasco.</small>
   </footer>
 
-  <script type='text/javascript'>
-    document.querySelector("#scared-girls").addEventListener("mouseover", reloadPicture);
-
-    
-    function reloadPicture() {
+  <script type="text/javascript">
+    document.querySelector("#scared-girls").addEventListener("mouseover", function () {
       document.querySelector("#scared-girls").setAttribute("src", "./img/horror_movie.gif");
-    }
-    </script>
-
+    });
+  </script>
   
 </body>
 </html>

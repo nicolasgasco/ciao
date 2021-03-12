@@ -34,6 +34,12 @@ showMoreButton.addEventListener("mouseout", function () {
 });
 
 
+document.querySelector("#empty-folder-woman").addEventListener("mouseover", function () {
+    document.querySelector("#empty-folder-woman").setAttribute("src", "./img/not_found.gif");
+});
+
+
+
 const favoritesLinkButton = document.querySelector("#favorites-link-button");
 
 
@@ -249,6 +255,10 @@ function showErrorMessageGraphics(targetDiv) {
         <img src="./img/no_data.gif" alt="Animation of puzzled man in front of no data error" id="no-data-man">
     </div>
     `
+
+    document.querySelector("#no-data-man").addEventListener("mouseover", function () {
+        document.querySelector("#no-data-man").setAttribute("src", "./img/no_data.gif");
+    });
 }
 
 function createArrayWithRelevantInfo(dataSet) {
