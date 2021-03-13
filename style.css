@@ -560,10 +560,10 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 
 
     #main-nav-list {
-        flex-wrap: nowrap !important;
-        justify-content: center !important;
-        margin: 0 !important;
-        padding: 0 !important;
+        flex-wrap: nowrap;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
     }
 
     .nav-items {
@@ -589,16 +589,16 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     /* GENERAL */
 
     footer * {
-        font-size: xx-small !important;
+        font-size: xx-small;
     }
 
     .home-container, .search-container {
         display: block;
-        margin: 1rem 2rem 2rem 2rem !important;
+        margin: 1rem 2rem 2rem 2rem;
     }
 
     .media-card {
-        width: 100% !important;
+        width: 95%;
     }
 
     .home-pic, #empty-folder-woman, #no-data-man, #man-empty-box, #scared-girls {
@@ -610,16 +610,16 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 
 
     .home-container > *, {
-        margin: 0 !important;
+        margin: 0;
     }
 
     .welcome-text {
-        max-width: none !important;
-        margin: 0 !important;
+        max-width: none;
+        margin: 0;
     }
 
     #main-nav-list {
-        justify-content: space-between !important;
+        justify-content: space-between;
 
     }
 
@@ -629,11 +629,11 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     /* SEARCH */
 
     #search-error-container {
-        margin: 0 !important;
+        margin: 0;
     }
 
     .media-card-text, .hidden-text {
-        font-size: small !important;
+        font-size: small;
     }
 
     #search-bar {
@@ -644,6 +644,23 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
         font-size: x-large;
     }
 
+
+
+    #show-more-container, #show-more-container * {
+        margin: 0;
+        padding: 0;
+    }
+
+    #no-more-to-show {
+        margin-bottom: 0.5rem;
+    }
+    #show-more-text {
+        display: none !important;
+    }
+
+    #show-more-button {
+        width: 3rem;
+    }
 
 
 
