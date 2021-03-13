@@ -185,9 +185,7 @@ footer {
 
 .hidden-text {
     display: none;
-    margin: 0
-    /* To compensate strange difference in height */
-    margin-bottom: 0.71rem;
+    margin: 0;
     overflow: hidden;
 }
 
@@ -685,7 +683,11 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     .heart-icons:hover, #search-icon:hover, .media-card:hover {
         transform: none;
     }
-
+    
+    .hidden-text {
+        /* To compensate strange difference in height */
+        padding-bottom: 0.71rem;
+    }
 
     /* FAVORITES */
 
