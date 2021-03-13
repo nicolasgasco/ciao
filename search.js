@@ -2,6 +2,7 @@
 let pageFetchedFromAPI = 1;
 let newSearch = true;
 let userFavorites = createChoicesArrayFromLocalStorage();
+console.log(userFavorites)
 
 // In order for these to work, it must be either tv or movie (API terms)
 let movieGenreArray = createObjectGenres("tv");
@@ -147,8 +148,8 @@ function createCardsWithMedia(dataSet, page) {
 
             resultsBox.innerHTML +=
                 `
-                <div class="media-card" id="media-card-${element[1].id}" onmouseover="showBacksideCard(event, ${element[1].id})">
-                    <img src="${posterUrl}" alt="Poster picture of ${element[1].title}" class="poster-pic" id="poster-pic-${element[1].id}">
+                <div class="media-card" id="media-card-${element[1].id}">
+                    <img src="${posterUrl}" alt="Poster picture of ${element[1].title}" class="poster-pic" id="poster-pic-${element[1].id}" onmouseover="showBacksideCard(event, ${element[1].id})">
                     <div class="hidden-text" id="hidden-text-${element[1].id}">
                         <p>${description}</p>
                     </div>
@@ -156,7 +157,7 @@ function createCardsWithMedia(dataSet, page) {
                     <div class="media-card-text" id="media-card-text-${element[1].id}">
                         ${titleWithDate}
 
-                        <p class="type-text"><span class="bold uppercase">Type:</span> ${element[1].media_type}</p>           
+                        <p class="type-text" id="type-text-${element[1].id}"><span class="bold uppercase">Type:</span> ${element[1].media_type}</p>           
                         ${genreLabels}
                         <div id="in-card-icons">
                             <p><span class="very-big">${element[1].vote_average}</span><span class="very-small">/10</span></p>
@@ -195,9 +196,9 @@ function showBacksideCard(e, id) {
     hiddenText.style.display = "block";
     hiddenText.style.overflow = "auto";
 
-    mediaCard.removeEventListener("mouseover", showBacksideCard);
+    moviePoster.removeEventListener("mouseover", showBacksideCard);
 
-    mediaCard.addEventListener("mouseout", function () {
+    hiddenText.addEventListener("mouseout", function () {
         hiddenText.style.display = "none";
         moviePoster.style.display = "inline";
     });
@@ -312,7 +313,8 @@ function addToFavoritesList(e) {
 
     const mediaId = e.target.id.split("-")[2];
     // Tv or movie
-    const mediaType = document.querySelector(".type-text").innerText.split(":")[1].substring(1);
+    const mediaType = document.querySelector(`#type-text-${mediaId}`).innerText.split(":")[1].substring(1);
+    console.log(mediaType)
 
     heartIcon.setAttribute("src", "./img/favourite.png");
     heartIcon.setAttribute("id", `favorite-icon-${mediaId}`);
