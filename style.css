@@ -74,7 +74,7 @@ footer {
 }
 
 .home-pic, #scared-girls {
-    flex-shrink: 3;
+    flex-shrink: 4;
 }
 
 .standard-button {
@@ -261,7 +261,7 @@ footer {
 }
 
 #scared-girls {
-    min-width: 450px;
+    min-width: 300px;
     max-width: 550px;
 }
 .text-container > * {
@@ -580,6 +580,9 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
         height: 35px;
     }
 
+    .welcome-text {
+        max-width: 50vh;
+    }
 
 
 }
