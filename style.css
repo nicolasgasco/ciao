@@ -677,7 +677,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
         font-size: medium;
     }
 
-    #search-bar {
+    #search-bar, #search-bar:focus, #search-bar:hover {
         width: 100%;
         padding-left: 2rem;
         font-size: small;
