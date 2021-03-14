@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 
+
 body {
     width: 100%;
     min-height: 100vh;
@@ -140,8 +141,8 @@ footer {
 }
 
 .media-card {
-    min-width: 300px;
-    width: 16vw;
+    width: 20rem;
+    /* width: 16vw; */
     /* Need this to keep them in place after animation */
     margin: auto 0.5rem;
     margin-bottom: 1rem;
