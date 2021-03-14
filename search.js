@@ -194,6 +194,7 @@ function showBacksideCard(e, id) {
     } 
     moviePoster.style.display = "none";
     hiddenText.style.display = "block";
+
     hiddenText.style.overflow = "auto";
 
     moviePoster.removeEventListener("mouseover", showBacksideCard);
@@ -251,8 +252,8 @@ function showErrorMessageGraphics(targetDiv) {
     targetDiv.innerHTML =
     `
     <div id="search-error-container" class="search-container">
-        <h2>Oops! It looks like you know more than us on cinema...</h2>
-        <small>(Either that or the film you're looking for doesn't exist.)</small>
+        <h2 class="uppercase">Oops! It looks like you know more than us on cinema...</h2>
+        <p>(Either that or the film you're looking for doesn't exist.)</p>
         <img src="./img/no_data.gif" alt="Animation of puzzled man in front of no data error" id="no-data-man">
     </div>
     `
