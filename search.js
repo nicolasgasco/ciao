@@ -91,8 +91,7 @@ function createCardsWithMedia(dataSet, page) {
     let posterSize = 300; 
 
     // Nothing found
-    if ( dataSet.results.length === 0 ) {
-
+    if ( dataSet.total_results === 0 ) {
         resultsBox.innerHTML = ``;
         showErrorMessageGraphics(resultsBox);
 
