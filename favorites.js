@@ -43,8 +43,8 @@ function fetchMediaFromID(id, type) {
     })
     .catch( (error) => {
         console.log("ERROR: ", error)
-        const resultsBox = document.querySelector("#results-box");
-        showErrorMessageGraphics(resultsBox);
+        const favoritesBox = document.querySelector("#favorites-box");
+        showErrorMessageGraphics(favoritesBox);
     });
 
 }
@@ -220,4 +220,22 @@ function wipeCleanResultsArea() {
 
 function showEmptyPageText() {
     document.querySelector("#error-box").style.display = "block";
+}
+
+function showErrorMessageGraphics(targetDiv) {
+    targetDiv.style.flexDirection = "column";
+    targetDiv.style.alignItems = "center";
+    
+    targetDiv.innerHTML =
+    `
+    <div id="search-error-container" class="search-container">
+        <h2 class="uppercase">Oops! It looks like you know more than us on cinema...</h2>
+        <p>(Either that or the film you're looking for doesn't exist.)</p>
+        <img src="./img/no_data.gif" alt="Animation of puzzled man in front of no data error" id="no-data-man">
+    </div>
+    `
+
+    document.querySelector("#no-data-man").addEventListener("mouseover", function () {
+        document.querySelector("#no-data-man").setAttribute("src", "./img/no_data.gif");
+    });
 }

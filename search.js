@@ -74,11 +74,11 @@ function fetchMediaFromKeywords(e, freshSearch=true) {
         // On phones, when fetching new cards, very last one is shown
 
     })
-    // .catch( (error) => {
-    //     console.log("ERROR: ", error)
-    //     const resultsBox = document.querySelector("#results-box");
-    //     showErrorMessageGraphics(resultsBox);
-    // });
+    .catch( (error) => {
+        console.log("ERROR: ", error)
+        const resultsBox = document.querySelector("#results-box");
+        showErrorMessageGraphics(resultsBox);
+    });
 
 }
 
