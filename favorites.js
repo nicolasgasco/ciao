@@ -12,7 +12,7 @@ document.querySelector("#man-empty-box").addEventListener("mouseover", function 
 window.onload = function () {
     wipeCleanResultsArea();
     // Using .length gives and error
-    if ( userFavorites[0] or !null ) {
+    if ( userFavorites[0] ) {
         createFavoritesCards();
     } else {
         showEmptyPageText()
