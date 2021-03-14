@@ -407,6 +407,9 @@ a, a:visited  {
  font-size: small;
 }
 
+.input-link {
+    font-weight: bold;
+}
 /* AESTHETICS */
 
 body, #show-more-button {
@@ -526,6 +529,11 @@ hr {
     border: 0;
     height: 1px;
     background-image: linear-gradient(to right, rgba(107, 107, 107, 0), rgba(107, 107, 107, 0.75), rgba(107, 107, 107, 0));
+}
+
+.input-link {
+    background-color: transparent;
+    border: none;
 }
 
 .top-box {
