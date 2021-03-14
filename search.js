@@ -8,7 +8,7 @@ let movieGenreArray = createObjectGenres("tv");
 let seriesGenreArray = createObjectGenres("movie");
 
 
-window.onunload = saveChoicesToLS;
+
 
 // Even to trigger search trough button and search bar
 const searchButton = document.querySelector("#search-button");
