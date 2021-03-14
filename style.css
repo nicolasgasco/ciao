@@ -71,7 +71,7 @@ footer {
     flex-shrink: 4;
 }
 
-.standard-button {
+.input-link {
     padding: 0.6rem 0.9rem;
 }
 
@@ -533,6 +533,15 @@ hr {
 .input-link {
     background-color: transparent;
     border: none;
+    background-color: transparent;
+}
+
+.input-link:active, .input-link:focus {
+    outline: none;
+}
+
+form {
+    display: inline-block;
 }
 
 .top-box {
