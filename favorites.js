@@ -1,6 +1,4 @@
-// let userFavorites = fetchChoicesFromLocalStorage();
-
-let userFavorites = [{id: "330459", type: "movie"}];
+let userFavorites = fetchChoicesFromLocalStorage();
 
 const movieGenreArray = createObjectGenres("tv");
 const seriesGenreArray = createObjectGenres("movie");
