@@ -1,4 +1,6 @@
-let userFavorites = fetchChoicesFromLocalStorage();
+// let userFavorites = fetchChoicesFromLocalStorage();
+
+let userFavorites = [{id: "330459", type: "movie"}];
 
 const movieGenreArray = createObjectGenres("tv");
 const seriesGenreArray = createObjectGenres("movie");
@@ -13,6 +15,7 @@ window.onload = function () {
     wipeCleanResultsArea();
     // Using .length gives and error
     if ( userFavorites[0] ) {
+        console.log(userFavorites)
         createFavoritesCards();
     } else {
         showEmptyPageText()
