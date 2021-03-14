@@ -621,8 +621,16 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 
     /* GENERAL */
 
+    footer {
+        padding: 0.75rem;
+    }
+
+    footer > * {
+        padding: 0 0.75rem;
+    }
+
     footer * {
-        font-size: xx-small;
+        font-size: 7px;
     }
 
     .home-container, .search-container {
