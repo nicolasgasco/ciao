@@ -140,7 +140,7 @@ footer {
 }
 
 .media-card {
-    min-width: 250px;
+    min-width: 300px;
     width: 16vw;
     /* Need this to keep them in place after animation */
     margin: auto 0.5rem;
@@ -509,8 +509,8 @@ footer, .top-box {
 }
 
 .heart-icons {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
 }
 
 hr {
