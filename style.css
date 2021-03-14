@@ -629,13 +629,18 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     }
 
 
+
+    .home-pic {
+        display: none;
+    }
+
     #scared-girls, #empty-folder-woman, #no-data-man {
         margin: 0 auto;
         min-width: 80vw;
         width: 90vw;
     }
 
-    #man-empty-box, .home-pic  {
+    #man-empty-box,  {
         margin: 0 auto;
         min-width: 70vw;
         width: 75vw;
