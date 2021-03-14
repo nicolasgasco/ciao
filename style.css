@@ -95,9 +95,8 @@ footer {
 }
 
 #search-box-form {
-    min-width: 70%;
-    max-width: 100%;
-    height: 6vh;
+    max-width: 95%;
+    height: 3.5rem;
     margin: 2vh auto;
 
     display: flex;
@@ -669,6 +668,10 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     }
     /* SEARCH */
 
+
+    #search-box-form {
+        height: 3rem;
+    }
     #search-error-container {
         margin: 0;
     }
@@ -677,7 +680,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
         font-size: medium;
     }
 
-    #search-bar, #search-bar:focus, #search-bar:hover {
+    #search-bar {
         width: 100%;
         padding-left: 2rem;
         font-size: small;
