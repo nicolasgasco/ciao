@@ -7,9 +7,6 @@ let userFavorites = createChoicesArrayFromLocalStorage();
 let movieGenreArray = createObjectGenres("tv");
 let seriesGenreArray = createObjectGenres("movie");
 
-
-
-
 // Even to trigger search trough button and search bar
 const searchButton = document.querySelector("#search-button");
 searchButton.addEventListener("click", fetchMediaFromKeywords);
@@ -344,6 +341,7 @@ function removeFromFavoritesList(e) {
 
     // Remove from list
     userFavorites = userFavorites.filter(item => item.id !== mediaId)
+    saveChoicesToLS();
 
     heartIcon.addEventListener("click", addToFavoritesList);
   
