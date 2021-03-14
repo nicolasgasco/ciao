@@ -2,7 +2,6 @@
 let pageFetchedFromAPI = 1;
 let newSearch = true;
 let userFavorites = createChoicesArrayFromLocalStorage();
-console.log(userFavorites)
 
 // In order for these to work, it must be either tv or movie (API terms)
 let movieGenreArray = createObjectGenres("tv");
@@ -45,7 +44,6 @@ const favoritesLinkButton = document.querySelector("#favorites-link-button");
 
 
 function fetchMediaFromKeywords(e, freshSearch=true) {
-    console.log(userFavorites)
     const apiKey = `019e3db391209165d704763866329bb3`;
     const language = `en-US`;
     const resultsBox = document.querySelector("#results-box");
@@ -314,7 +312,6 @@ function addToFavoritesList(e) {
     const mediaId = e.target.id.split("-")[2];
     // Tv or movie
     const mediaType = document.querySelector(`#type-text-${mediaId}`).innerText.split(":")[1].substring(1);
-    console.log(mediaType)
 
     heartIcon.setAttribute("src", "./img/favourite.png");
     heartIcon.setAttribute("id", `favorite-icon-${mediaId}`);
