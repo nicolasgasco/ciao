@@ -628,11 +628,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
         margin: 1rem 2rem 2rem 2rem;
     }
 
-    .media-card {
-        width: 90%;
-        margin: auto 0;
-        margin-bottom: 1rem;
-    }
+
 
     .home-pic, #empty-folder-woman, #no-data-man, #man-empty-box, #scared-girls {
         display: none;
@@ -675,6 +671,18 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
         font-size: medium;
     }
 
+    #results-box {
+        width: 90%;
+        padding-top: 1rem;
+    }
+
+    .media-card {
+        min-width: 250px;
+        width: 90%;
+        margin: auto 0;
+        margin-bottom: 1rem;
+    }
+
     #search-bar {
         width: 100%;
         padding-left: 2rem;
@@ -711,6 +719,8 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
         /* To compensate strange difference in height */
         padding-bottom: 0.71rem;
     }
+
+
 
     /* FAVORITES */
 
