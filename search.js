@@ -323,11 +323,6 @@ function addToFavoritesList(e) {
     }
     userFavorites.push(mediaObject);
 
-    // This condition should be useless
-    // if ( !userFavorites.includes(mediaId) ) {
-  
-    // }
-
     heartIcon.addEventListener("click", removeFromFavoritesList);
 }
 
