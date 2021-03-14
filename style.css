@@ -629,9 +629,16 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     }
 
 
+    #scared-girls, #empty-folder-woman, #no-data-man {
+        margin: 0 auto;
+        min-width: 80vw;
+        width: 90vw;
+    }
 
-    .home-pic, #empty-folder-woman, #no-data-man, #man-empty-box, #scared-girls {
-        display: none;
+    #man-empty-box, .home-pic  {
+        margin: 0 auto;
+        min-width: 70vw;
+        width: 75vw;
     }
 
 
