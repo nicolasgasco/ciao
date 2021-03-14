@@ -322,6 +322,7 @@ function addToFavoritesList(e) {
         "type": mediaType,
     }
     userFavorites.push(mediaObject);
+    saveChoicesToLS();
 
     heartIcon.addEventListener("click", removeFromFavoritesList);
 }
