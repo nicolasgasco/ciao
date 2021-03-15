@@ -193,7 +193,7 @@ function showBacksideCard(e) {
 
     hiddenText.style.overflow = "auto";
 
-    if ( window.innerWidth > 650 ) {
+    if ( window.innerWidth > 1000 ) {
         mediaCard.addEventListener("mouseout", function () {
             hiddenText.style.display = "none";
             moviePoster.style.display = "inline";

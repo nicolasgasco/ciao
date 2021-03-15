@@ -178,7 +178,7 @@ function createCardsWithMedia(dataSet, page) {
         }
 
         document.querySelectorAll(".media-card").forEach( card => {
-            if ( window.innerWidth > 650 ) {
+            if ( window.innerWidth > 1000 ) {
                 card.addEventListener("mouseover", showBacksideCard);
             } else {
                 card.addEventListener("click", showBacksideCard);
