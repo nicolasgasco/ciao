@@ -102,7 +102,7 @@ function createCardsWithId(dataSet, type) {
 
     favoritesBox.innerHTML +=
                 `
-                <div class="media-card" id="media-card-${dataSet.id}" onmouseover="showBacksideCard(event, ${dataSet.id})">
+                <div class="media-card" id="media-card-${dataSet.id}">
                     <img src="${posterUrl}" alt="Poster picture of ${mediaTitle}" class="poster-pic" id="poster-pic-${dataSet.id}">
                     <div class="hidden-text" id="hidden-text-${dataSet.id}">
                         <p>${description}</p>
@@ -122,6 +122,12 @@ function createCardsWithId(dataSet, type) {
                 </div>
  
             `
+    
+    if ( window.innerWidth > 650 ) {
+        document.querySelector(`#media-card-${dataSet.id}`).addEventListener("mouseover", showBacksideCard);
+    } else {
+        document.querySelector(`#media-card-${dataSet.id}`).addEventListener("click", showBacksideCard);
+    };
 
 }
 
@@ -168,28 +174,44 @@ function getGenreLabelFromId(id) {
     }
 }
 
-function showBacksideCard(e, id) {
+function showBacksideCard(e) {
+    console.log("ciao")
+    const id = e.currentTarget.id.split("-")[2];
     const mediaCard = document.querySelector(`#media-card-${id}`);
     const moviePoster = document.querySelector(`#poster-pic-${id}`);
     const hiddenText = document.querySelector(`#hidden-text-${id}`);
     const shownText = document.querySelector(`#media-card-text-${id}`);
     let hiddenParagraph = document.querySelector(`#hidden-text-${id} p`);
 
+
     if ( !hiddenParagraph.innerText ) {
         hiddenParagraph.innerText = "No description available."
     } 
+
     moviePoster.style.display = "none";
     hiddenText.style.display = "block";
+
     hiddenText.style.overflow = "auto";
 
-    mediaCard.removeEventListener("mouseover", showBacksideCard);
+    if ( window.innerWidth > 650 ) {
+        mediaCard.addEventListener("mouseout", function () {
+            hiddenText.style.display = "none";
+            moviePoster.style.display = "inline";
+        });
+    } else {
+        console.log("miao")
+        mediaCard.removeEventListener("click", showBacksideCard);
+        mediaCard.addEventListener("click", function () {
+            hiddenText.style.display = "none";
+            moviePoster.style.display = "inline";
+            mediaCard.addEventListener("click", showBacksideCard);
+        });
+        
+    }
 
-    mediaCard.addEventListener("mouseout", function () {
-        hiddenText.style.display = "none";
-        moviePoster.style.display = "inline";
-    });
 
 }
+
 
 
 function removeFromFavoritesList(e) {

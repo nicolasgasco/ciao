@@ -218,8 +218,6 @@ function showBacksideCard(e) {
             moviePoster.style.display = "inline";
         });
     }
-
-
 }
 
 
