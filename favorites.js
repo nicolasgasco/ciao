@@ -41,6 +41,7 @@ function fetchMediaFromID(id, type) {
         const favoritesBox = document.querySelector("#favorites-box");
 
         createCardsWithId(data, type);
+
     })
     .catch( (error) => {
         console.log("ERROR: ", error)
@@ -121,11 +122,15 @@ function createCardsWithId(dataSet, type) {
                 </div>
  
             `
-    
+
     if ( !isTouchEnabled() ) {
-        document.querySelector(`#media-card-${dataSet.id}`).addEventListener("mouseover", showBacksideCard);
+        document.querySelectorAll(".media-card").forEach( card => {
+            card.addEventListener("mouseover", showBacksideCard);
+        });
     } else {
-        document.querySelector(`#poster-pic-${dataSet.id}`).addEventListener("click", showBacksideCard);
+        document.querySelectorAll(".poster-pic").forEach( pic => {
+            pic.addEventListener("click", showBacksideCard);
+        });
     };
 
 }
@@ -174,7 +179,6 @@ function getGenreLabelFromId(id) {
 }
 
 function showBacksideCard(e) {
-
     const id = e.currentTarget.id.split("-")[2];
 
     const mediaCard = document.querySelector(`#media-card-${id}`);
