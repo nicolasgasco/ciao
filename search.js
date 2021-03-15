@@ -178,7 +178,7 @@ function createCardsWithMedia(dataSet, page) {
         }
 
         document.querySelectorAll(".media-card").forEach( card => {
-            if ( window.innerWidth > 1000 ) {
+            if ( !isTouchEnabled() ) {
                 card.addEventListener("mouseover", showBacksideCard);
             } else {
                 card.addEventListener("click", showBacksideCard);
@@ -190,14 +190,13 @@ function createCardsWithMedia(dataSet, page) {
 
 function showBacksideCard(e) {
 
-    console.log("ciao")
     const id = e.currentTarget.id.split("-")[2];
     const mediaCard = document.querySelector(`#media-card-${id}`);
     const moviePoster = document.querySelector(`#poster-pic-${id}`);
     const hiddenText = document.querySelector(`#hidden-text-${id}`);
     const shownText = document.querySelector(`#media-card-text-${id}`);
     let hiddenParagraph = document.querySelector(`#hidden-text-${id} p`);
-
+    mediaCard.removeEventListener("click", showBacksideCard);
 
     if ( !hiddenParagraph.innerText ) {
         hiddenParagraph.innerText = "No description available."
@@ -207,7 +206,8 @@ function showBacksideCard(e) {
 
     hiddenText.style.overflow = "auto";
 
-    if ( window.innerWidth > 650 ) {
+    if ( !isTouchEnabled() ) {
+
         mediaCard.addEventListener("mouseout", function () {
             hiddenText.style.display = "none";
             moviePoster.style.display = "inline";
@@ -216,6 +216,7 @@ function showBacksideCard(e) {
         mediaCard.addEventListener("click", function () {
             hiddenText.style.display = "none";
             moviePoster.style.display = "inline";
+            mediaCard.addEventListener("click", showBacksideCard);
         });
     }
 }
@@ -425,7 +426,11 @@ function fetchIdOfLastMediaCard() {
     const lastCardId = lastCard.id;
 
     return lastCardId;
-
-
 }
+
+function isTouchEnabled() { 
+    return ( 'ontouchstart' in window ) ||  
+           ( navigator.maxTouchPoints > 0 ) ||  
+           ( navigator.msMaxTouchPoints > 0 ); 
+} 
 
