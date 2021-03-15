@@ -3,6 +3,7 @@ let pageFetchedFromAPI = 1;
 let newSearch = true;
 let userFavorites = createChoicesArrayFromLocalStorage();
 
+
 // In order for these to work, it must be either tv or movie (API terms)
 let movieGenreArray = createObjectGenres("tv");
 let seriesGenreArray = createObjectGenres("movie");
@@ -143,7 +144,7 @@ function createCardsWithMedia(dataSet, page) {
             resultsBox.innerHTML +=
                 `
                 <div class="media-card" id="media-card-${element[1].id}">
-                    <img src="${posterUrl}" alt="Poster picture of ${element[1].title}" class="poster-pic" id="poster-pic-${element[1].id}" onmouseover="showBacksideCard(event, ${element[1].id})">
+                    <img src="${posterUrl}" alt="Poster picture of ${element[1].title}" class="poster-pic" id="poster-pic-${element[1].id}">
                     <div class="hidden-text" id="hidden-text-${element[1].id}">
                         <p>${description}</p>
                     </div>
@@ -162,6 +163,9 @@ function createCardsWithMedia(dataSet, page) {
                 </div>
  
             `
+
+
+            // onmouseover="showBacksideCard(event, ${element[1].id})"
             
         });
 
@@ -172,16 +176,28 @@ function createCardsWithMedia(dataSet, page) {
             document.getElementById("show-more-button").style.visibility = "hidden";
             document.getElementById("no-more-to-show").style.visibility = "visible";
         }
+
+        document.querySelectorAll(".media-card").forEach( card => {
+            if ( window.innerWidth > 650 ) {
+                card.addEventListener("mouseover", showBacksideCard);
+            } else {
+                card.addEventListener("click", showBacksideCard);
+            }
+        });
         
     }
 }
 
-function showBacksideCard(e, id) {
+function showBacksideCard(e) {
+
+    console.log("ciao")
+    const id = e.currentTarget.id.split("-")[2];
     const mediaCard = document.querySelector(`#media-card-${id}`);
     const moviePoster = document.querySelector(`#poster-pic-${id}`);
     const hiddenText = document.querySelector(`#hidden-text-${id}`);
     const shownText = document.querySelector(`#media-card-text-${id}`);
     let hiddenParagraph = document.querySelector(`#hidden-text-${id} p`);
+
 
     if ( !hiddenParagraph.innerText ) {
         hiddenParagraph.innerText = "No description available."
@@ -191,12 +207,18 @@ function showBacksideCard(e, id) {
 
     hiddenText.style.overflow = "auto";
 
-    moviePoster.removeEventListener("mouseover", showBacksideCard);
+    if ( window.innerWidth > 650 ) {
+        mediaCard.addEventListener("mouseout", function () {
+            hiddenText.style.display = "none";
+            moviePoster.style.display = "inline";
+        });
+    } else {
+        mediaCard.addEventListener("click", function () {
+            hiddenText.style.display = "none";
+            moviePoster.style.display = "inline";
+        });
+    }
 
-    hiddenText.addEventListener("mouseout", function () {
-        hiddenText.style.display = "none";
-        moviePoster.style.display = "inline";
-    });
 
 }
 
