@@ -125,7 +125,7 @@ function createCardsWithId(dataSet, type) {
     if ( !isTouchEnabled() ) {
         document.querySelector(`#media-card-${dataSet.id}`).addEventListener("mouseover", showBacksideCard);
     } else {
-        document.querySelector(`#media-card-${dataSet.id}`).addEventListener("click", showBacksideCard);
+        document.querySelector(`#poster-pic-${dataSet.id}`).addEventListener("click", showBacksideCard);
     };
 
 }
@@ -176,12 +176,14 @@ function getGenreLabelFromId(id) {
 function showBacksideCard(e) {
 
     const id = e.currentTarget.id.split("-")[2];
+
     const mediaCard = document.querySelector(`#media-card-${id}`);
     const moviePoster = document.querySelector(`#poster-pic-${id}`);
     const hiddenText = document.querySelector(`#hidden-text-${id}`);
     const shownText = document.querySelector(`#media-card-text-${id}`);
     let hiddenParagraph = document.querySelector(`#hidden-text-${id} p`);
-    mediaCard.removeEventListener("click", showBacksideCard);
+    
+    moviePoster.removeEventListener("click", showBacksideCard);
 
     if ( !hiddenParagraph.innerText ) {
         hiddenParagraph.innerText = "No description available."
@@ -198,10 +200,10 @@ function showBacksideCard(e) {
             moviePoster.style.display = "inline";
         });
     } else {
-        mediaCard.addEventListener("click", function () {
+        hiddenText.addEventListener("click", function () {
             hiddenText.style.display = "none";
             moviePoster.style.display = "inline";
-            mediaCard.addEventListener("click", showBacksideCard);
+            moviePoster.addEventListener("click", showBacksideCard);
         });
     }
 }

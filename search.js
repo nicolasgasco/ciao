@@ -177,13 +177,15 @@ function createCardsWithMedia(dataSet, page) {
             document.getElementById("no-more-to-show").style.visibility = "visible";
         }
 
-        document.querySelectorAll(".media-card").forEach( card => {
-            if ( !isTouchEnabled() ) {
+        if ( !isTouchEnabled() ) {
+            document.querySelectorAll(".media-card").forEach( card => {
                 card.addEventListener("mouseover", showBacksideCard);
-            } else {
-                card.addEventListener("click", showBacksideCard);
-            }
-        });
+            });
+        } else {
+            document.querySelectorAll(".poster-pic").forEach( pic => {
+                pic.addEventListener("click", showBacksideCard);
+            });
+        }
         
     }
 }
@@ -191,12 +193,14 @@ function createCardsWithMedia(dataSet, page) {
 function showBacksideCard(e) {
 
     const id = e.currentTarget.id.split("-")[2];
+
     const mediaCard = document.querySelector(`#media-card-${id}`);
     const moviePoster = document.querySelector(`#poster-pic-${id}`);
     const hiddenText = document.querySelector(`#hidden-text-${id}`);
     const shownText = document.querySelector(`#media-card-text-${id}`);
     let hiddenParagraph = document.querySelector(`#hidden-text-${id} p`);
-    mediaCard.removeEventListener("click", showBacksideCard);
+    
+    moviePoster.removeEventListener("click", showBacksideCard);
 
     if ( !hiddenParagraph.innerText ) {
         hiddenParagraph.innerText = "No description available."
@@ -213,10 +217,10 @@ function showBacksideCard(e) {
             moviePoster.style.display = "inline";
         });
     } else {
-        mediaCard.addEventListener("click", function () {
+        hiddenText.addEventListener("click", function () {
             hiddenText.style.display = "none";
             moviePoster.style.display = "inline";
-            mediaCard.addEventListener("click", showBacksideCard);
+            moviePoster.addEventListener("click", showBacksideCard);
         });
     }
 }
