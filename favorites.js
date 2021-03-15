@@ -13,7 +13,6 @@ window.onload = function () {
     wipeCleanResultsArea();
     // Using .length gives and error
     if ( userFavorites[0] ) {
-        console.log(userFavorites)
         createFavoritesCards();
     } else {
         showEmptyPageText()
@@ -123,7 +122,7 @@ function createCardsWithId(dataSet, type) {
  
             `
     
-    if ( window.innerWidth > 650 ) {
+    if ( !isTouchEnabled() ) {
         document.querySelector(`#media-card-${dataSet.id}`).addEventListener("mouseover", showBacksideCard);
     } else {
         document.querySelector(`#media-card-${dataSet.id}`).addEventListener("click", showBacksideCard);
@@ -175,42 +174,38 @@ function getGenreLabelFromId(id) {
 }
 
 function showBacksideCard(e) {
-    console.log("ciao")
+
     const id = e.currentTarget.id.split("-")[2];
     const mediaCard = document.querySelector(`#media-card-${id}`);
     const moviePoster = document.querySelector(`#poster-pic-${id}`);
     const hiddenText = document.querySelector(`#hidden-text-${id}`);
     const shownText = document.querySelector(`#media-card-text-${id}`);
     let hiddenParagraph = document.querySelector(`#hidden-text-${id} p`);
-
+    mediaCard.removeEventListener("click", showBacksideCard);
 
     if ( !hiddenParagraph.innerText ) {
         hiddenParagraph.innerText = "No description available."
     } 
-
     moviePoster.style.display = "none";
     hiddenText.style.display = "block";
 
     hiddenText.style.overflow = "auto";
 
-    if ( window.innerWidth > 1000 ) {
+    if ( !isTouchEnabled() ) {
+
         mediaCard.addEventListener("mouseout", function () {
             hiddenText.style.display = "none";
             moviePoster.style.display = "inline";
         });
     } else {
-        console.log("miao")
-        mediaCard.removeEventListener("click", showBacksideCard);
         mediaCard.addEventListener("click", function () {
             hiddenText.style.display = "none";
             moviePoster.style.display = "inline";
             mediaCard.addEventListener("click", showBacksideCard);
         });
-        
     }
-
-
 }
+
 
 
 
@@ -263,3 +258,10 @@ function showErrorMessageGraphics(targetDiv) {
         document.querySelector("#no-data-man").setAttribute("src", "./img/no_data.gif");
     });
 }
+
+function isTouchEnabled() { 
+    return ( 'ontouchstart' in window ) ||  
+           ( navigator.maxTouchPoints > 0 ) ||  
+           ( navigator.msMaxTouchPoints > 0 ); 
+} 
+
