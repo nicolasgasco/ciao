@@ -179,7 +179,6 @@ function getGenreLabelFromId(id) {
 }
 
 function showBacksideCard(e) {
-    console.log("new-version")
     const id = e.currentTarget.id.split("-")[2];
 
     const mediaCard = document.querySelector(`#media-card-${id}`);
