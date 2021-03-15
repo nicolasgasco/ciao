@@ -459,7 +459,7 @@ footer, .top-box {
     background-image: linear-gradient(to right bottom, #22b041, #009579, #007496, #004f8c, #162960);
 }
 
-.standard-button:hover, #search-button:hover {        
+.standard-button:hover, .standard-button:focus, #search-button:hover, #search-button:focus {        
     background-image: linear-gradient(to right, #22b041, #009579, #007496, #004f8c, #162960);
 }
 
