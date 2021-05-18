@@ -418,9 +418,6 @@ function showNextPages() {
     fetchMediaFromKeywords(event, false);
     window.location.hash = fetchIdOfLastMediaCard();
     // Jump to last item from previous batch
-    // const lastCardId =
-
-    // window.location.hash = lastCardId;
 
 }
 
